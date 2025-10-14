@@ -3,131 +3,94 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Anadolu Üniversitesi</title>
+  <title>Öğrenci Bilgi Sayfası</title>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <style>
     html, body {
       margin: 0;
       padding: 0;
-      width: 100%;
       font-family: 'Roboto', sans-serif;
-      background-color: #fff4f4;
+      background-color: #f8f4f4;
       color: #4a0000;
       text-align: center;
     }
 
     .header {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
       margin: 20px 0;
-    }
-
-    .header img {
-      max-width: 400px;
-      height: auto;
     }
 
     .header p {
       font-size: 22px;
       font-weight: bold;
       color: #a10000;
-      margin-top: 10px;
+      margin: 6px 0;
     }
 
     .social-container {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  margin-top: 15px;
-}
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 15px;
+    }
 
-.social-logo {
-  width: 45px;
-  height: 45px;
-  display: inline-block;
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-  border-radius: 0; /* Yuvarlaklık kaldırıldı */
-  box-shadow: none; /* Gölge kaldırıldı */
-  transition: transform 0.2s ease;
-}
+    .social-logo {
+      width: 45px;
+      height: 45px;
+      display: inline-block;
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      transition: transform 0.2s ease;
+    }
 
-.social-logo:hover {
-  transform: scale(1.05);
-}
+    .social-logo:hover {
+      transform: scale(1.05);
+    }
 
-.instagram {
-  background-image: url('https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png');
-}
-
-.whatsapp {
-  background-image: url('https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg');
-}
-
-.youtube {
-  background-image: url('https://upload.wikimedia.org/wikipedia/commons/9/90/Logo_of_YouTube_%282013-2015%29.svg');
-  width: 85px;
-  height: 55px;
-}
+    .instagram { background-image: url('https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png'); }
+    .whatsapp { background-image: url('https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg'); }
+    .youtube { background-image: url('https://upload.wikimedia.org/wikipedia/commons/9/90/Logo_of_YouTube_%282013-2015%29.svg'); width: 85px; height: 55px; }
 
     .button-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 16px;
-  margin-top: 30px;
-}
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      margin-top: 30px;
+    }
 
-.button-container button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  width: 90%;
-  max-width: 340px;
-  padding: 14px 20px;
-  font-size: 17px;
-  font-weight: 600;
-  color: #fff;
-  border: none;
-  border-radius: 14px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-}
+    .button-container button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 90%;
+      max-width: 340px;
+      padding: 14px 20px;
+      font-size: 17px;
+      font-weight: 600;
+      color: #fff;
+      border: none;
+      border-radius: 14px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
 
-/* Buton Renkleri */
-.btn-red {
-  background: linear-gradient(135deg, #e53935, #c62828);
-}
-.btn-blue {
-  background: linear-gradient(135deg, #1e88e5, #1565c0);
-}
-.btn-green {
-  background: linear-gradient(135deg, #43a047, #2e7d32);
-}
-.btn-orange {
-  background: linear-gradient(135deg, #fb8c00, #ef6c00);
-}
-.btn-purple {
-  background: linear-gradient(135deg, #8e24aa, #6a1b9a);
-}
-.btn-gray {
-  background: linear-gradient(135deg, #607d8b, #455a64);
-}
+    .btn-red { background: linear-gradient(135deg, #e53935, #c62828); }
+    .btn-blue { background: linear-gradient(135deg, #1e88e5, #1565c0); }
+    .btn-green { background: linear-gradient(135deg, #43a047, #2e7d32); }
+    .btn-orange { background: linear-gradient(135deg, #fb8c00, #ef6c00); }
+    .btn-purple { background: linear-gradient(135deg, #8e24aa, #6a1b9a); }
+    .btn-gray { background: linear-gradient(135deg, #607d8b, #455a64); }
 
-/* Hover Efekt */
-.button-container button:hover {
-  transform: translateY(-2px) scale(1.02);
-  filter: brightness(1.1);
-}
+    .button-container button:hover {
+      transform: translateY(-2px) scale(1.02);
+      filter: brightness(1.1);
+    }
 
-.button-container i {
-  font-size: 18px;
-}
+    .button-container i { font-size: 18px; }
 
     .info-text {
       font-size: 16px;
@@ -136,139 +99,49 @@
       margin-top: 10px;
     }
 
-    .modal {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 90%;
-  max-width: 360px;
-  background: #ffeaea;
-  color: #4a0000;
-  padding: 25px 20px;
-  border: 2px solid #d32f2f;
-  border-radius: 12px;
-  text-align: center;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-  display: none;
-  z-index: 10;
-}
-
-.modal h3 {
-  font-size: 20px;
-  font-weight: bold;
-  margin-bottom: 12px;
-  text-decoration: underline;
-}
-
-.modal p {
-  font-size: 16px;
-  font-weight: 600;
-  margin: 8px 0;
-}
-
-.modal .modal-icon {
-  font-size: 40px;
-  color: #d32f2f;
-  margin-bottom: 10px;
-}
-
-.modal button {
-  margin-top: 15px;
-  padding: 10px 20px;
-  font-size: 16px;
-  font-weight: bold;
-  color: #fff;
-  background-color: #d32f2f;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.modal button:hover {
-  background-color: #b71c1c;
-}
-
-    .backdrop {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.5);
-      display: none;
-      z-index: 5;
+    @media (max-width: 480px) {
+      .button-container button { width: 95%; }
+      .header p { font-size: 18px; }
     }
   </style>
 </head>
 <body>
 
   <div class="header">
-    <img src="https://www.anadolu.edu.tr/uploads/anadolu/ckfinder/web/files/T%C3%9CRK%C3%87E%20LOGOLAR%20Anadolu%20%C3%9Cniversitesi-01(1).png" alt="Anadolu Üniversitesi Logosu">
     <p>Halkla İlişkiler ve Reklamcılık</p>
     <p>Öğrenci Bilgi Sayfası</p>
 
     <div class="social-container">
       <a href="https://www.instagram.com/aof_halklailiskilerreklamcilik/" target="_blank" class="social-logo instagram"></a>
       <a href="https://chat.whatsapp.com/HxUm7sZkBkxAomZFu1tHU8" target="_blank" class="social-logo whatsapp"></a>
-      <div style="display: flex; flex-direction: column; align-items: center;">
-        <a href="https://youtube.com/@aofcuabla?si=UbuzUzh9HpBcmuSy" target="_blank" class="social-logo youtube"></a>
-        <span class="abone-ol">ABONE OL</span>
-      </div>
+      <a href="https://youtube.com/@aofcuabla?si=UbuzUzh9HpBcmuSy" target="_blank" class="social-logo youtube"></a>
     </div>
   </div>
 
   <div class="button-container">
-  <button class="btn-red" onclick="navigateTo('https://ekampus.anadolu.edu.tr/#/login')">
-    <i class="fas fa-university"></i> E Kampüs
-  </button>
-  <button class="btn-blue" onclick="navigateTo('https://aosogrenci.anadolu.edu.tr/')">
-    <i class="fas fa-id-card-alt"></i> Öğrenci Bilgi Sistemi
-  </button>
-  <button class="btn-purple" onclick="navigateTo('bilgi.html')">
-    <i class="fas fa-info-circle"></i> Bölüm Bilgilendirme
-  </button>
-  <button class="btn-orange" onclick="navigateTo('https://ghost5422.github.io/hesap/')">
-    <i class="fas fa-calculator"></i> Not Hesaplayıcı Vize & Final
-  </button>
-  
-  <button class="btn-gray" onclick="navigateTo('https://ghost5422.github.io/ders/')">
-    <i class="fas fa-file-alt"></i> Çıkmış Sorular Kontrol
-  </button>
-</div>
-    <p class="info-text"><i class="fas fa-lightbulb"></i> E-Kampüs'teki çıkmış soruları buradan test edebilir, doğru-yanlış kontrolü yapabilirsin.</p>
+    <button class="btn-red" onclick="navigateTo('https://ekampus.anadolu.edu.tr/#/login')">
+      <i class="fas fa-university"></i> E Kampüs
+    </button>
+    <button class="btn-blue" onclick="navigateTo('https://aosogrenci.anadolu.edu.tr/')">
+      <i class="fas fa-id-card-alt"></i> Öğrenci Bilgi Sistemi
+    </button>
+    <button class="btn-purple" onclick="navigateTo('bilgi.html')">
+      <i class="fas fa-info-circle"></i> Bölüm Bilgilendirme
+    </button>
+    <button class="btn-orange" onclick="navigateTo('test.html')">
+      <i class="fas fa-calculator"></i> Not Hesaplayıcı Vize & Final
+    </button>
+    <button class="btn-gray" onclick="navigateTo('kontrol.html')">
+      <i class="fas fa-file-alt"></i> Çıkmış Sorular Kontrol
+    </button>
   </div>
 
-  <div id="backdrop" class="backdrop"></div>
-
-  <div id="modal" class="modal">
-  <div class="modal-icon"><i class="fas fa-calendar-alt"></i></div>
-  <h3>2025 AKADEMİK TAKVİM</h3>
-  <p>6 - 17 EKİM : Güz Dönemi Kayıt Yenileme </p>
-  <p>6 - 7 Aralık  : Güz Dönemi Vize Sınavı </p>
-  <P>2 - 13 ŞUBAT : BAHAR DÖNEMİ KAYIT YENİLEME </P>
-  <button onclick="closeModal()">KAPAT</button>
-</div>
+  <p class="info-text"><i class="fas fa-lightbulb"></i> E-Kampüs'teki çıkmış soruları buradan test edebilir, doğru-yanlış kontrolü yapabilirsiniz.</p>
 
   <script>
     function navigateTo(url) {
       window.open(url, '_blank');
     }
-
-    function showModal() {
-      document.getElementById('modal').style.display = 'block';
-      document.getElementById('backdrop').style.display = 'block';
-    }
-
-    function closeModal() {
-      document.getElementById('modal').style.display = 'none';
-      document.getElementById('backdrop').style.display = 'none';
-    }
-
-    window.onload = function () {
-      setTimeout(showModal, 3000);
-    };
   </script>
 
 </body>
