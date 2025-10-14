@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Soru Kontrol (Dinamik)</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      margin: 0;
+      background: #f2f2f2;
+    }
+
+    h2 {
+      text-align: center;
+      font-size: 24px;
+      color: #d32f2f;
+    }
+
+    .soru-container {
+      margin-bottom: 15px;
+    }
+
+    .soru-container p {
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    .butonlar button {
+      padding: 8px 12px;
+      margin: 2px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      background-color: white;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .butonlar button.selected {
+      background-color: #007bff;
+      color: white;
+      border-color: #0056b3;
+    }
+
+    input, button {
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      margin-top: 10px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+    }
+
+    #baslat {
+      background-color: #2196f3;
+      color: white;
+      font-weight: bold;
+    }
+
+    #goster {
+      background-color: #28a745;
+      color: white;
+      font-weight: bold;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .sonuclar {
+      margin-top: 20px;
+      text-align: center;
+      font-size: 18px;
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .sonuclar span {
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .dogruYazi { background: #c8e6c9; color: #2e7d32; }
+    .yanlisYazi { background: #ffcdd2; color: #c62828; }
+    .bosYazi { background: #fff9c4; color: #f9a825; }
+
+    .table-container {
+      overflow-x: auto;
+      margin-top: 20px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      table-layout: fixed;
+      word-wrap: break-word;
+      background-color: white;
+    }
+
+    th, td {
+      border: 1px solid #ccc;
+      padding: 10px;
+      text-align: center;
+      font-size: 16px;
+    }
+
+    .dogru { background-color: #c8e6c9; }
+    .yanlis { background-color: #ffcdd2; }
+    .bos { background-color: #fff9c4; }
+
+    label {
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 20px;
+    }
+
+    @media (max-width: 600px) {
+      th, td {
+        font-size: 14px;
+        padding: 8px;
+      }
+
+      .butonlar button {
+        font-size: 13px;
+        padding: 6px 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h2><i class="fas fa-clipboard-check"></i> Çıkmış Sorular Test Kontrol (Dinamik)</h2>
+
+  <label><i class="fas fa-list-ol"></i> Soru Sayısı</label>
+  <input type="number" id="soruSayisi" placeholder="Kaç soru olacak?" min="1" max="200" />
+
+  <button id="baslat" onclick="sorulariOlustur()"><i class="fas fa-play"></i> Testi Başlat</button>
+
+  <div id="sorular"></div>
+
+  <label><i class="fas fa-key"></i> Cevap Anahtarı (örn: DCBAC...)</label>
+  <input type="text" id="cevapAnahtari" placeholder="Doğru cevapları gir (A–E)" />
+
+  <button id="goster" onclick="kontrolEt()"><i class="fas fa-check-circle"></i> Sonuçları Göster</button>
+
+  <div class="sonuclar" id="ozet"></div>
+
+  <div class="table-container">
+    <table id="sonucTablosu">
+      <thead>
+        <tr>
+          <th>Soru</th>
+          <th>İşaretlenen</th>
+          <th>Doğru Cevap</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <script>
+    let ogrenciCevaplar = [];
+
+    function sorulariOlustur() {
+      const soruSayisi = parseInt(document.getElementById("soruSayisi").value);
+      const soruAlani = document.getElementById("sorular");
+      soruAlani.innerHTML = "";
+      ogrenciCevaplar = new Array(soruSayisi).fill("-");
+
+      for (let i = 0; i < soruSayisi; i++) {
+        const soruDiv = document.createElement("div");
+        soruDiv.className = "soru-container";
+        soruDiv.innerHTML = `
+          <p><i class="fas fa-question-circle"></i> ${i + 1}. Soru:</p>
+          <div class="butonlar" data-soru="${i}">
+            <button onclick="sec(${i}, 'A')">A</button>
+            <button onclick="sec(${i}, 'B')">B</button>
+            <button onclick="sec(${i}, 'C')">C</button>
+            <button onclick="sec(${i}, 'D')">D</button>
+            <button onclick="sec(${i}, 'E')">E</button>
+            <button onclick="sec(${i}, '-')"><i class="fas fa-eraser"></i> Boş</button>
+          </div>
+        `;
+        soruAlani.appendChild(soruDiv);
+      }
+    }
+
+    function sec(soruNo, secim) {
+      ogrenciCevaplar[soruNo] = secim;
+      const butonlar = document.querySelectorAll(`.butonlar[data-soru="${soruNo}"] button`);
+      butonlar.forEach(btn => {
+        if (btn.textContent === secim || (secim === "-" && btn.textContent.includes("Boş"))) {
+          btn.classList.add("selected");
+        } else {
+          btn.classList.remove("selected");
+        }
+      });
+    }
+
+    function kontrolEt() {
+      const dogrular = document.getElementById("cevapAnahtari").value.toUpperCase().replace(/[^A-E]/g, "");
+      const tablo = document.querySelector("#sonucTablosu tbody");
+      const ozet = document.getElementById("ozet");
+      tablo.innerHTML = "";
+
+      let dogru = 0, yanlis = 0, bos = 0;
+
+      for (let i = 0; i < ogrenciCevaplar.length; i++) {
+        const ogrCevap = ogrenciCevaplar[i] || "-";
+        const dogruCevap = dogrular[i] || "-";
+        const satir = document.createElement("tr");
+
+        if (ogrCevap === "-" || ogrCevap === "") {
+          satir.classList.add("bos");
+          bos++;
+        } else if (ogrCevap === dogruCevap) {
+          satir.classList.add("dogru");
+          dogru++;
+        } else {
+          satir.classList.add("yanlis");
+          yanlis++;
+        }
+
+        satir.innerHTML = `
+          <td>${i + 1}</td>
+          <td>${ogrCevap}</td>
+          <td>${dogruCevap}</td>
+        `;
+        tablo.appendChild(satir);
+      }
+
+      ozet.innerHTML = `
+        <span class="dogruYazi"><i class="fas fa-check-circle"></i> ${dogru} Doğru</span>
+        <span class="yanlisYazi"><i class="fas fa-times-circle"></i> ${yanlis} Yanlış</span>
+        <span class="bosYazi"><i class="fas fa-minus-circle"></i> ${bos} Boş</span>
+      `;
+    }
+  </script>
+
+</body>
+</html>
