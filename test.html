@@ -249,31 +249,54 @@
       }
     });
 
-    function hesapla() {
-      const vize = parseFloat(document.getElementById('vize').value);
-      const final = parseFloat(document.getElementById('final').value);
-      if (isNaN(vize) || isNaN(final)) {
-        Swal.fire("Eksik bilgi", "Lütfen hem vize hem final notunu girin!", "warning");
-        return;
-      }
+function hesapla() {
+  const vizeInput = document.getElementById('vize').value;
+  const finalInput = document.getElementById('final').value;
 
-      const ortalama = ((vize * 0.30) + (final * 0.70)).toFixed(2);
-      const durum = ortalama >= gecmeNotu ? "Geçti" : "Kaldı";
+  const vize = parseFloat(vizeInput);
+  const final = parseFloat(finalInput);
 
-      resultDiv.textContent = `Ortalama: ${ortalama} - ${durum}`;
-      resultDiv.className = "result " + (durum === "Geçti" ? "pass" : "fail");
+  // Vize yoksa
+  if (isNaN(vize)) {
+    Swal.fire("Eksik bilgi", "Lütfen vize notunu girin!", "warning");
+    return;
+  }
 
-      const now = new Date().toLocaleString("tr-TR");
-      const newRow = { tarih: now, vize, final, ortalama, durum };
-      saveToLocal(newRow);
-      loadTable();
+  // FINAL BOŞSA → GEREKLİ FINALİ HESAPLA
+  if (finalInput === "") {
+    const gerekliFinal = (gecmeNotu - (vize * 0.30)) / 0.70;
+
+    if (gerekliFinal > 100) {
+      resultDiv.textContent = "Bu vize notu ile dersi geçmek mümkün değil ❌";
+      resultDiv.className = "result fail";
+    } else if (gerekliFinal <= 0) {
+      resultDiv.textContent = "Finale girmeden dersi geçiyorsun 🎉";
+      resultDiv.className = "result pass";
+    } else {
+      resultDiv.textContent =
+        `Dersten geçmek için finalden en az ${gerekliFinal.toFixed(2)} almalısın`;
+      resultDiv.className = "result yellow";
     }
+    return;
+  }
 
-    function saveToLocal(row) {
-      const data = JSON.parse(localStorage.getItem("gecmisNotlar") || "[]");
-      data.push(row);
-      localStorage.setItem("gecmisNotlar", JSON.stringify(data));
-    }
+  // Vize + Final girildiyse → ESKİ SİSTEM AYNI
+  if (isNaN(final)) {
+    Swal.fire("Hatalı giriş", "Final notu geçerli değil!", "warning");
+    return;
+  }
+
+  const ortalama = ((vize * 0.30) + (final * 0.70)).toFixed(2);
+  const durum = ortalama >= gecmeNotu ? "Geçti" : "Kaldı";
+
+  resultDiv.textContent = `Ortalama: ${ortalama} - ${durum}`;
+  resultDiv.className = "result " + (durum === "Geçti" ? "pass" : "fail");
+
+  const now = new Date().toLocaleString("tr-TR");
+  const newRow = { tarih: now, vize, final, ortalama, durum };
+  saveToLocal(newRow);
+  loadTable();
+}
 
     function loadTable() {
       const data = JSON.parse(localStorage.getItem("gecmisNotlar") || "[]");
