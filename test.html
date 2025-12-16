@@ -262,6 +262,13 @@ function hesapla() {
     return;
   }
 
+
+function saveToLocal(row) {
+  const data = JSON.parse(localStorage.getItem("gecmisNotlar") || "[]");
+  data.push(row);
+  localStorage.setItem("gecmisNotlar", JSON.stringify(data));
+}
+
   // FINAL BOŞSA → GEREKLİ FINALİ HESAPLA
   if (finalInput === "") {
     const gerekliFinal = (gecmeNotu - (vize * 0.30)) / 0.70;
