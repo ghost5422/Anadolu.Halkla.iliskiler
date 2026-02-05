@@ -2,181 +2,318 @@
 <html lang="tr">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Soru Kontrol (Dinamik)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+  <title>Soru Kontrol Sistemi</title>
+  
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
   <style>
+    :root {
+      --primary-color: #8B0000; /* Bordo */
+      --secondary-color: #2d3436;
+      --bg-gradient: linear-gradient(-45deg, #ff9a9e, #fad0c4, #fad0c4, #a10000);
+      --card-bg: rgba(255, 255, 255, 0.95);
+      --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      --success: #27ae60;
+      --error: #c0392b;
+      --warning: #f39c12;
+    }
+
     body {
-      font-family: Arial, sans-serif;
-      padding: 20px;
       margin: 0;
-      background: #f2f2f2;
+      padding: 20px;
+      font-family: 'Inter', sans-serif;
+      background: var(--bg-gradient);
+      background-size: 400% 400%;
+      animation: gradientBG 15s ease infinite;
+      min-height: 100vh;
+      color: var(--secondary-color);
+    }
+
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* Ana Konteyner */
+    .main-card {
+      background: var(--card-bg);
+      max-width: 800px;
+      margin: 0 auto;
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow: var(--shadow);
+    }
+
+    /* Üst Bar ve Başlık */
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 25px;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 15px;
     }
 
     h2 {
-      text-align: center;
-      font-size: 24px;
-      color: #d32f2f;
+      margin: 0;
+      font-size: 22px;
+      color: var(--primary-color);
     }
 
-    .soru-container {
-      margin-bottom: 15px;
-    }
-
-    .soru-container p {
-      margin-bottom: 5px;
-      font-weight: bold;
-    }
-
-    .butonlar button {
-      padding: 8px 12px;
-      margin: 2px;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-      background-color: white;
+    .back-btn {
+      text-decoration: none;
+      color: #555;
+      font-size: 14px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      transition: color 0.3s;
       cursor: pointer;
-      transition: 0.3s;
+      background: none;
+      border: none;
+    }
+    
+    .back-btn:hover { color: var(--primary-color); }
+
+    /* Input Alanları */
+    .input-group {
+      margin-bottom: 20px;
     }
 
-    .butonlar button.selected {
-      background-color: #007bff;
-      color: white;
-      border-color: #0056b3;
+    label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: #333;
+      font-size: 14px;
     }
+    
+    label i { color: var(--primary-color); margin-right: 5px; }
 
-    input, button {
+    input[type="number"], input[type="text"] {
       width: 100%;
-      padding: 12px;
+      padding: 14px;
+      border: 2px solid #e0e0e0;
+      border-radius: 12px;
       font-size: 16px;
-      margin-top: 10px;
-      border-radius: 6px;
-      border: 1px solid #ccc;
+      font-family: 'Inter', sans-serif;
+      transition: all 0.3s;
       box-sizing: border-box;
     }
 
-    #baslat {
-      background-color: #2196f3;
-      color: white;
-      font-weight: bold;
+    input:focus {
+      border-color: var(--primary-color);
+      outline: none;
+      box-shadow: 0 0 0 4px rgba(139, 0, 0, 0.1);
     }
 
-    #goster {
-      background-color: #28a745;
+    /* Ana Aksiyon Butonları */
+    .action-btn {
+      width: 100%;
+      padding: 16px;
+      border: none;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      margin-top: 10px;
       color: white;
-      font-weight: bold;
+    }
+
+    .btn-start { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); }
+    .btn-check { background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); color: #005c4b; }
+    
+    .action-btn:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+    .action-btn:active { transform: scale(0.98); }
+
+    /* Soru Listesi Alanı */
+    #sorular {
+      margin-top: 30px;
+    }
+
+    .soru-container {
+      background: #f9f9f9;
+      padding: 15px;
+      border-radius: 12px;
+      margin-bottom: 15px;
+      border: 1px solid #eee;
+    }
+
+    .soru-container p {
+      margin: 0 0 10px 0;
+      font-weight: 600;
+      font-size: 15px;
+      color: #444;
+    }
+
+    /* Şık Seçenek Butonları */
+    .butonlar {
       display: flex;
-      justify-content: center;
-      align-items: center;
+      flex-wrap: wrap;
       gap: 8px;
     }
 
+    .butonlar button {
+      flex: 1;
+      min-width: 40px;
+      padding: 10px;
+      border: 1px solid #ddd;
+      background: white;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      color: #555;
+      transition: all 0.2s ease;
+    }
+
+    .butonlar button:hover { background: #f0f0f0; }
+
+    /* Seçili Durum */
+    .butonlar button.selected {
+      background-color: var(--primary-color);
+      color: white;
+      border-color: var(--primary-color);
+      box-shadow: 0 4px 10px rgba(139, 0, 0, 0.2);
+    }
+
+    /* Sonuçlar Özeti */
     .sonuclar {
-      margin-top: 20px;
-      text-align: center;
-      font-size: 18px;
       display: flex;
-      justify-content: space-around;
-      flex-wrap: wrap;
+      justify-content: space-between;
+      margin-top: 30px;
       gap: 10px;
     }
 
-    .sonuclar span {
-      padding: 8px 16px;
-      border-radius: 6px;
-      font-weight: bold;
+    .stat-card {
+      flex: 1;
+      padding: 15px;
+      border-radius: 12px;
+      text-align: center;
+      font-weight: 700;
+      font-size: 14px;
       display: flex;
+      flex-direction: column;
       align-items: center;
-      gap: 8px;
+      justify-content: center;
     }
+    
+    .stat-card i { font-size: 20px; margin-bottom: 5px; }
 
-    .dogruYazi { background: #c8e6c9; color: #2e7d32; }
-    .yanlisYazi { background: #ffcdd2; color: #c62828; }
-    .bosYazi { background: #fff9c4; color: #f9a825; }
+    .dogruYazi { background: #d4edda; color: #155724; }
+    .yanlisYazi { background: #f8d7da; color: #721c24; }
+    .bosYazi { background: #fff3cd; color: #856404; }
 
+    /* Tablo Tasarımı */
     .table-container {
-      overflow-x: auto;
-      margin-top: 20px;
+      margin-top: 25px;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid #eee;
     }
 
     table {
       width: 100%;
       border-collapse: collapse;
-      table-layout: fixed;
-      word-wrap: break-word;
-      background-color: white;
+      background: white;
     }
 
     th, td {
-      border: 1px solid #ccc;
-      padding: 10px;
+      padding: 12px 15px;
       text-align: center;
-      font-size: 16px;
+      font-size: 14px;
     }
 
-    .dogru { background-color: #c8e6c9; }
-    .yanlis { background-color: #ffcdd2; }
-    .bos { background-color: #fff9c4; }
-
-    label {
-      font-weight: bold;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-top: 20px;
+    th {
+      background-color: #f8f9fa;
+      color: #444;
+      font-weight: 700;
+      text-transform: uppercase;
+      font-size: 12px;
+      letter-spacing: 0.5px;
     }
 
+    tr { border-bottom: 1px solid #f1f1f1; }
+    tr:last-child { border-bottom: none; }
+
+    /* Tablo Renklendirme */
+    .dogru { background-color: rgba(39, 174, 96, 0.1) !important; color: var(--success); }
+    .yanlis { background-color: rgba(192, 57, 43, 0.1) !important; color: var(--error); }
+    .bos { background-color: rgba(243, 156, 18, 0.1) !important; color: var(--warning); }
+
+    /* Mobil */
     @media (max-width: 600px) {
-      th, td {
-        font-size: 14px;
-        padding: 8px;
-      }
-
-      .butonlar button {
-        font-size: 13px;
-        padding: 6px 10px;
-      }
+      .main-card { padding: 20px; }
+      .butonlar button { font-size: 13px; padding: 8px; }
+      .sonuclar { flex-direction: column; }
     }
   </style>
 </head>
 <body>
 
-  <h2><i class="fas fa-clipboard-check"></i> Çıkmış Sorular Test Kontrol (Dinamik)</h2>
+  <div class="main-card">
+    
+    <div class="top-bar">
+      <button class="back-btn" onclick="window.location.href='index.html'">
+        <i class="fas fa-arrow-left"></i> Ana Sayfa
+      </button>
+      <h2>Soru Kontrol</h2>
+    </div>
 
-  <label><i class="fas fa-list-ol"></i> Soru Sayısı</label>
-  <input type="number" id="soruSayisi" placeholder="Kaç soru olacak?" min="1" max="200" />
-<button onclick="window.location.href='index.html'" style="margin-bottom: 15px; padding: 8px 12px; border-radius: 6px; border: 1px solid #ccc; background-color: #eee; cursor: pointer;">
-  <i class="fas fa-arrow-left"></i> Ana Sayfaya Dön
-</button>
+    <div class="input-group">
+      <label for="soruSayisi"><i class="fas fa-list-ol"></i> Soru Sayısı</label>
+      <input type="number" id="soruSayisi" placeholder="Örn: 20" min="1" max="200" />
+      <button id="baslat" class="action-btn btn-start" onclick="sorulariOlustur()">
+        <i class="fas fa-play"></i> Testi Oluştur
+      </button>
+    </div>
 
-  <button id="baslat" onclick="sorulariOlustur()"><i class="fas fa-play"></i> Testi Başlat</button>
+    <div id="sorular"></div>
 
-  <div id="sorular"></div>
+    <hr style="border: 0; border-top: 1px solid #eee; margin: 30px 0;">
 
-  <label><i class="fas fa-key"></i> Cevap Anahtarı (örn: DCBAC...)</label>
-  <input type="text" id="cevapAnahtari" placeholder="Doğru cevapları gir (A–E)" />
+    <div class="input-group">
+      <label for="cevapAnahtari"><i class="fas fa-key"></i> Cevap Anahtarı</label>
+      <input type="text" id="cevapAnahtari" placeholder="Örn: ADCBE..." />
+      <button id="goster" class="action-btn btn-check" onclick="kontrolEt()">
+        <i class="fas fa-clipboard-check"></i> Sonuçları Göster
+      </button>
+    </div>
 
-  <button id="goster" onclick="kontrolEt()"><i class="fas fa-check-circle"></i> Sonuçları Göster</button>
+    <div class="sonuclar" id="ozet"></div>
 
-  <div class="sonuclar" id="ozet"></div>
+    <div class="table-container">
+      <table id="sonucTablosu">
+        <thead>
+          <tr>
+            <th>Soru</th>
+            <th>Senin Cevabın</th>
+            <th>Doğru Cevap</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td colspan="3" style="color:#999;">Henüz sonuç hesaplanmadı.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 
-  <div class="table-container">
-    <table id="sonucTablosu">
-      <thead>
-        <tr>
-          <th>Soru</th>
-          <th>İşaretlenen</th>
-          <th>Doğru Cevap</th>
-        </tr>
-      </thead>
-      <tbody></tbody>
-    </table>
   </div>
 
   <script>
+    /* ORİJİNAL MANTIK KORUNDU */
     let ogrenciCevaplar = [];
 
     function sorulariOlustur() {
-      const soruSayisi = parseInt(document.getElementById("soruSayisi").value);
+      const inputVal = document.getElementById("soruSayisi").value;
+      if (!inputVal) { alert("Lütfen soru sayısı giriniz."); return; }
+      
+      const soruSayisi = parseInt(inputVal);
       const soruAlani = document.getElementById("sorular");
       soruAlani.innerHTML = "";
       ogrenciCevaplar = new Array(soruSayisi).fill("-");
@@ -184,15 +321,16 @@
       for (let i = 0; i < soruSayisi; i++) {
         const soruDiv = document.createElement("div");
         soruDiv.className = "soru-container";
+        // Buton yapısı biraz daha temiz hale getirildi ama mantık aynı
         soruDiv.innerHTML = `
-          <p><i class="fas fa-question-circle"></i> ${i + 1}. Soru:</p>
+          <p><i class="fas fa-question-circle" style="color:#ccc;"></i> ${i + 1}. Soru</p>
           <div class="butonlar" data-soru="${i}">
             <button onclick="sec(${i}, 'A')">A</button>
             <button onclick="sec(${i}, 'B')">B</button>
             <button onclick="sec(${i}, 'C')">C</button>
             <button onclick="sec(${i}, 'D')">D</button>
             <button onclick="sec(${i}, 'E')">E</button>
-            <button onclick="sec(${i}, '-')"><i class="fas fa-eraser"></i> Boş</button>
+            <button onclick="sec(${i}, '-')" style="flex: 0 0 auto; width: auto; font-size: 12px;"><i class="fas fa-eraser"></i> Sil</button>
           </div>
         `;
         soruAlani.appendChild(soruDiv);
@@ -202,16 +340,26 @@
     function sec(soruNo, secim) {
       ogrenciCevaplar[soruNo] = secim;
       const butonlar = document.querySelectorAll(`.butonlar[data-soru="${soruNo}"] button`);
+      
       butonlar.forEach(btn => {
-        if (btn.textContent === secim || (secim === "-" && btn.textContent.includes("Boş"))) {
-          btn.classList.add("selected");
+        // Seçim mantığı: Eğer butonun metni seçimle aynıysa VEYA sil butonuna basıldıysa
+        const btnText = btn.innerText.replace(" Sil", "").trim(); 
+        
+        if (btnText === secim || (secim === "-" && btn.innerHTML.includes("fa-eraser"))) {
+          // Sil butonuna özel stil eklemeyelim, sadece harfleri boyayalım
+          if(secim !== "-") btn.classList.add("selected");
         } else {
           btn.classList.remove("selected");
         }
+        
+        // Sil butonuna basıldığında tüm selected classlarını kaldır
+        if(secim === "-") btn.classList.remove("selected");
       });
     }
 
     function kontrolEt() {
+      if(ogrenciCevaplar.length === 0) { alert("Önce testi oluşturmalısınız."); return; }
+
       const dogrular = document.getElementById("cevapAnahtari").value.toUpperCase().replace(/[^A-E]/g, "");
       const tablo = document.querySelector("#sonucTablosu tbody");
       const ozet = document.getElementById("ozet");
@@ -235,18 +383,36 @@
           yanlis++;
         }
 
+        // İkonlar ekleyerek tabloyu zenginleştirelim
+        let durumIkon = "";
+        if (satir.classList.contains("dogru")) durumIkon = '<i class="fas fa-check"></i>';
+        else if (satir.classList.contains("yanlis")) durumIkon = '<i class="fas fa-times"></i>';
+        else durumIkon = '<i class="fas fa-minus"></i>';
+
         satir.innerHTML = `
-          <td>${i + 1}</td>
+          <td><strong>${i + 1}</strong></td>
           <td>${ogrCevap}</td>
-          <td>${dogruCevap}</td>
+          <td>
+            ${dogruCevap} 
+            <span style="float:right;">${durumIkon}</span>
+          </td>
         `;
         tablo.appendChild(satir);
       }
 
       ozet.innerHTML = `
-        <span class="dogruYazi"><i class="fas fa-check-circle"></i> ${dogru} Doğru</span>
-        <span class="yanlisYazi"><i class="fas fa-times-circle"></i> ${yanlis} Yanlış</span>
-        <span class="bosYazi"><i class="fas fa-minus-circle"></i> ${bos} Boş</span>
+        <div class="stat-card dogruYazi">
+          <i class="fas fa-check-circle"></i>
+          <div>${dogru} Doğru</div>
+        </div>
+        <div class="stat-card yanlisYazi">
+          <i class="fas fa-times-circle"></i>
+          <div>${yanlis} Yanlış</div>
+        </div>
+        <div class="stat-card bosYazi">
+          <i class="fas fa-minus-circle"></i>
+          <div>${bos} Boş</div>
+        </div>
       `;
     }
   </script>
