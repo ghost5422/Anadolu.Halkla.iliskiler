@@ -2,198 +2,344 @@
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bilgilendirme</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Bölüm Bilgilendirme</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
     <style>
+        :root {
+            --primary-color: #8B0000; /* Bordo */
+            --text-color: #2d3436;
+            --bg-gradient: linear-gradient(-45deg, #ff9a9e, #fad0c4, #fad0c4, #a10000);
+            --card-bg: rgba(255, 255, 255, 0.95);
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
         body {
-            font-family: 'Poppins', sans-serif;
-            background-color: #FDF2F2;
-            color: #333;
             margin: 0;
-            padding: 0;
-            text-align: center;
-        }
-
-        header {
-            background-color: #C62828;
-            color: white;
-            padding: 20px 0;
-        }
-
-        h1 {
-            margin: 0;
-            font-weight: 600;
-            font-size: 2em;
-        }
-
-        main {
-            max-width: 900px;
-            margin: 20px auto;
-            background: white;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.08);
-            text-align: left;
-        }
-
-        h2 {
-            color: #B71C1C;
-            font-weight: 600;
-            font-size: 1.4em;
-        }
-
-        h2 i {
-            margin-right: 8px;
-            color: #B71C1C;
-        }
-
-        p {
-            font-size: 1.1em;
+            padding: 20px;
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-gradient);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            min-height: 100vh;
+            color: var(--text-color);
             line-height: 1.6;
         }
 
-        a {
-            color: #C62828;
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Ana Konteyner */
+        .main-container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: var(--shadow);
+        }
+
+        /* Header Kısmı */
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        .page-header h1 {
+            margin: 0;
+            font-size: 24px;
+            color: var(--primary-color);
+        }
+
+        .back-btn {
             text-decoration: none;
+            color: #555;
+            font-size: 14px;
             font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: color 0.3s;
+            background: #f1f1f1;
+            padding: 8px 16px;
+            border-radius: 8px;
         }
 
-        .geri-buton {
-            display: block;
-            width: fit-content;
-            padding: 12px 18px;
-            background-color: #C62828;
+        .back-btn:hover {
+            background: var(--primary-color);
             color: white;
-            text-decoration: none;
-            border-radius: 5px;
-            font-weight: 600;
-            text-align: center;
-            margin: 20px auto;
-            transition: background 0.3s;
         }
 
-        .geri-buton:hover {
-            background-color: #8B0000;
-        }
-
-        .kutu {
-            background-color: #C62828;
+        /* Hero Banner */
+        .hero-banner {
+            background: linear-gradient(135deg, #8B0000, #c0392b);
             color: white;
-            padding: 15px;
-            border-radius: 5px;
-            font-weight: 600;
-            font-size: 1.2em;
-            margin: 10px 0;
+            padding: 20px;
+            border-radius: 12px;
             text-align: center;
+            font-weight: 600;
+            font-size: 1.1em;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(139, 0, 0, 0.2);
+        }
+
+        /* Grid Yapısı (Kutular) */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .info-card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            border: 1px solid #eee;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .info-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+            border-color: rgba(139, 0, 0, 0.2);
+        }
+
+        .info-card h2 {
+            font-size: 18px;
+            color: var(--primary-color);
+            margin-top: 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .info-card p {
+            margin-bottom: 0;
+            font-size: 15px;
+            color: #555;
+        }
+
+        /* Tablo Tasarımı */
+        .table-section {
+            margin-top: 40px;
+        }
+
+        .table-section h2 {
+            color: var(--primary-color);
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+
+        .table-responsive {
+            overflow-x: auto;
+            border-radius: 12px;
+            border: 1px solid #eee;
         }
 
         table {
             width: 100%;
-            margin: 20px 0;
             border-collapse: collapse;
-        }
-
-        table, th, td {
-            border: 1px solid #D32F2F;
+            background: white;
+            min-width: 500px; /* Mobilde tablo bozulmasın diye */
         }
 
         th, td {
-            padding: 10px;
-            text-align: center;
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
         }
 
         th {
-            background-color: #D32F2F;
+            background-color: #f9f9f9;
+            color: var(--primary-color);
+            font-weight: 700;
+        }
+
+        tr:last-child td { border-bottom: none; }
+        tr:hover { background-color: #fafafa; }
+
+        /* Liste Tasarımı */
+        .custom-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .custom-list li {
+            background: #fff;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            border: 1px solid #f0f0f0;
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+        }
+
+        .custom-list i.icon {
+            color: var(--primary-color);
+            background: rgba(139, 0, 0, 0.1);
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        /* Link Button */
+        .link-button {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 25px;
+            background: white;
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .link-button:hover {
+            background: var(--primary-color);
             color: white;
         }
 
-        td {
-            background-color: #FAFAFA;
+        /* Mobil */
+        @media (max-width: 600px) {
+            .main-container { padding: 20px; }
+            .info-grid { grid-template-columns: 1fr; }
+            .page-header { flex-direction: column-reverse; gap: 15px; align-items: flex-start; }
+            .back-btn { width: 100%; justify-content: center; }
         }
 
-        ul li {
-            margin-bottom: 12px;
-        }
-
-        .icon {
-            margin-right: 8px;
-            color: #C62828;
-        }
     </style>
 </head>
 <body>
-    <header>
-        <h1><i class="fas fa-info-circle"></i> Bilgilendirme Sayfası</h1>
-    </header>
 
-    <a href="index.html" class="geri-buton"><i class="fas fa-arrow-left"></i> Ana Sayfaya Dön</a>
+    <div class="main-container">
+        
+        <header class="page-header">
+            <h1>Bölüm Bilgilendirme</h1>
+            <a href="index.html" class="back-btn">
+                <i class="fas fa-arrow-left"></i> Ana Sayfaya Dön
+            </a>
+        </header>
 
-    <main>
-        <div class="kutu"><i class="fas fa-bullhorn"></i> Halkla İlişkiler ve Reklamcılık Bölümü</div>
+        <div class="hero-banner">
+            <i class="fas fa-university"></i> Halkla İlişkiler ve Reklamcılık Bölümü
+        </div>
 
-        <section>
-            <h2><i class="fas fa-building"></i> Bölüm Hakkında</h2>
-            <p>Halkla İlişkiler ve Reklamcılık bölümü, iletişim ve pazarlama alanlarında uzmanlaşmak isteyen öğrenciler için tasarlanmıştır. Program, medya, reklamcılık ve kurumsal iletişim konularını kapsamaktadır.</p>
-        </section>
+        <div class="info-grid">
+            
+            <div class="info-card">
+                <h2><i class="fas fa-building"></i> Bölüm Hakkında</h2>
+                <p>İletişim ve pazarlama alanlarında uzmanlaşmak isteyen öğrenciler için tasarlanmıştır. Medya, reklamcılık ve kurumsal iletişim konularını kapsar.</p>
+            </div>
 
-        <section>
-            <h2><i class="fas fa-pen-to-square"></i> Sınav Sistemi</h2>
-            <p>Sınavlar test formatında olup, başarı notu hesaplaması şu şekildedir: Vize %30, Final %70. Bütünleme sınavı final yerine geçer.</p>
-        </section>
+            <div class="info-card">
+                <h2><i class="fas fa-pen-to-square"></i> Sınav Sistemi</h2>
+                <p>Sınavlar test formatındadır. Başarı notu: <strong>Vize %30</strong>, <strong>Final %70</strong> etkiler. Bütünleme sınavı final yerine geçer.</p>
+            </div>
 
-        <section>
-            <h2><i class="fas fa-graduation-cap"></i> Mezuniyet Şartları</h2>
-            <p>Öğrencilerin 120 AKTS tamamlaması ve en az 2.00 not ortalamasına sahip olması gerekmektedir.</p>
-        </section>
+            <div class="info-card">
+                <h2><i class="fas fa-graduation-cap"></i> Mezuniyet Şartları</h2>
+                <p>Öğrencilerin <strong>120 AKTS</strong> kredisini tamamlaması ve genel not ortalamasının (GNO) en az <strong>2.00</strong> olması gerekmektedir.</p>
+            </div>
 
-        <section>
-            <h2><i class="fas fa-sun"></i> Yaz Okulu</h2>
-            <p>Yaz okulunda tek sınav yapılır ve alınan puan geçme notu olarak sayılır.</p>
-        </section>
+            <div class="info-card">
+                <h2><i class="fas fa-sun"></i> Yaz Okulu</h2>
+                <p>Yaz okulunda ders başına tek sınav yapılır. Alınan puan doğrudan başarı notu olarak kabul edilir.</p>
+            </div>
 
-        <section>
-            <h2><i class="fas fa-award"></i> Onur Belgesi</h2>
-            <p>Onur belgesi, 3.00 ve üzeri genel not ortalamasıyla verilmektedir. Yüksek onur belgesi ise 3.50 ve üzeri genel not ortalamasına sahip öğrenciler için geçerlidir.</p>
-        </section>
+            <div class="info-card">
+                <h2><i class="fas fa-award"></i> Onur Belgesi</h2>
+                <p><strong>Onur Belgesi:</strong> 3.00 - 3.49 ortalama.<br><strong>Yüksek Onur:</strong> 3.50 ve üzeri ortalama.</p>
+            </div>
 
-        <section>
-            <h2><i class="fas fa-briefcase"></i> Mezuniyet Sonrası</h2>
-            <p>Mezun olduktan sonra, öğrenciler pazarlama, reklamcılık, medya ve halkla ilişkiler gibi sektörlerde kariyer yapabilir. Girişimcilik fırsatları da mevcuttur.</p>
-        </section>
+            <div class="info-card">
+                <h2><i class="fas fa-briefcase"></i> Kariyer</h2>
+                <p>Mezunlar; reklam ajansları, medya kuruluşları, kurumsal iletişim departmanları ve halkla ilişkiler şirketlerinde çalışabilirler.</p>
+            </div>
 
-        <section>
-            <h2><i class="fas fa-book-open"></i> Bölümümüz Dersleri</h2>
-            <table>
-                <tr>
-                    <th colspan="2">Yarıyıl Olarak Ders Tablosu</th>
-                </tr>
-                <tr><td><strong>I. Yarıyıl</strong></td><td>1. Sınıf 1. Yarıyıl </td></tr>
-                <tr><td><strong>II. Yarıyıl</strong></td><td>1. Sınıf 2. Yarıyıl </td></tr>
-                <tr><td><strong>III. Yarıyıl</strong></td><td>2. Sınıf 1. Yarıyıl </td></tr>
-                <tr><td><strong>IV. Yarıyıl</strong></td><td>2. Sınıf 2. Yarıyıl </td></tr>
-                <tr><td><strong>V. Yarıyıl</strong></td><td>3. Sınıf 1. Yarıyıl</td></tr>
-                <tr><td><strong>VI. Yarıyıl</strong></td><td>3. Sınıf 2. Yarıyıl </td></tr>
-                <tr><td><strong>VII. Yarıyıl</strong></td><td>4. Sınıf 1. Yarıyıl </td></tr>
-                <tr><td><strong>VIII. Yarıyıl</strong></td><td>4. Sınıf 2. Yarıyıl </td></tr>
-            </table>
+        </div>
+
+        <hr style="border:0; border-top:1px solid #eee; margin: 40px 0;">
+
+        <section class="table-section">
+            <h2><i class="fas fa-book-open"></i> Yarıyıl Ders Planı</h2>
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Dönem</th>
+                            <th>Seviye</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><strong>I. Yarıyıl</strong></td><td>1. Sınıf - Güz Dönemi</td></tr>
+                        <tr><td><strong>II. Yarıyıl</strong></td><td>1. Sınıf - Bahar Dönemi</td></tr>
+                        <tr><td><strong>III. Yarıyıl</strong></td><td>2. Sınıf - Güz Dönemi</td></tr>
+                        <tr><td><strong>IV. Yarıyıl</strong></td><td>2. Sınıf - Bahar Dönemi</td></tr>
+                        <tr><td><strong>V. Yarıyıl</strong></td><td>3. Sınıf - Güz Dönemi</td></tr>
+                        <tr><td><strong>VI. Yarıyıl</strong></td><td>3. Sınıf - Bahar Dönemi</td></tr>
+                        <tr><td><strong>VII. Yarıyıl</strong></td><td>4. Sınıf - Güz Dönemi</td></tr>
+                        <tr><td><strong>VIII. Yarıyıl</strong></td><td>4. Sınıf - Bahar Dönemi</td></tr>
+                    </tbody>
+                </table>
+            </div>
             <div style="text-align:center;">
-                <a href="https://abp.anadolu.edu.tr/tr/program/dersler/1969/13" class="geri-buton"><i class="fas fa-link"></i> Dersler Hakkında Bilgi</a>
+                <a href="https://abp.anadolu.edu.tr/tr/program/dersler/1969/13" target="_blank" class="link-button">
+                    <i class="fas fa-external-link-alt"></i> Detaylı Ders Listesi
+                </a>
             </div>
         </section>
 
+        <hr style="border:0; border-top:1px solid #eee; margin: 40px 0;">
+
         <section>
-            <h2><i class="fas fa-laptop-file"></i> Açıköğretim Sistemi ve Sınav Süreçleri</h2>
-            <ul>
-                <li><i class="fas fa-calendar icon"></i> <strong>Sınavlar:</strong> Güz ve bahar dönemlerinde vize + final olmak üzere yılda 4 sınav yapılır.</li>
-                <li><i class="fas fa-percentage icon"></i> <strong>Not Hesabı:</strong> Vize %30, final %70. Finali kaçıranlar dersi tekrar eder.</li>
-                <li><i class="fas fa-location-dot icon"></i> <strong>Sınav Yeri:</strong> Öğrenci kendi şehrini seçer, sınavlar yüz yüze yapılır.</li>
-                <li><i class="fas fa-id-card icon"></i> <strong>Giriş Belgesi:</strong> Sınav giriş belgesi ve kimlik olmadan sınava girilemez.</li>
-                <li><i class="fas fa-exclamation-triangle icon"></i> <strong>Katılamama:</strong> Telafi sınavı yapılmaz, planlamaya dikkat edilmelidir.</li>
-                <li><i class="fas fa-check icon"></i> <strong>Geçme Notu:</strong> Minimum 35 puan barajı vardır, dönem ortalaması önemlidir.</li>
+            <h2 style="color:var(--primary-color); font-size:20px;"><i class="fas fa-laptop-file"></i> Açıköğretim Sınav Kuralları</h2>
+            <ul class="custom-list">
+                <li>
+                    <i class="fas fa-calendar icon"></i>
+                    <span><strong>Sınavlar:</strong> Güz ve bahar dönemlerinde (Vize + Final) yılda toplam 4 sınav yapılır.</span>
+                </li>
+                <li>
+                    <i class="fas fa-calculator icon"></i>
+                    <span><strong>Not Hesabı:</strong> Vize %30, Final %70 etkilidir. Final sınavına girmeyen dersten kalır.</span>
+                </li>
+                <li>
+                    <i class="fas fa-map-marker-alt icon"></i>
+                    <span><strong>Sınav Yeri:</strong> Öğrenci otomasyon üzerinden kendi sınav merkezini seçer, sınavlar yüz yüzedir.</span>
+                </li>
+                <li>
+                    <i class="fas fa-id-card icon"></i>
+                    <span><strong>Giriş Belgesi:</strong> Sınav giriş belgesi ve fotoğraflı kimlik zorunludur.</span>
+                </li>
+                <li>
+                    <i class="fas fa-exclamation-circle icon"></i>
+                    <span><strong>Telafi Yok:</strong> Mazeret sınavı yapılmaz, sınav tarihlerine dikkat edilmelidir.</span>
+                </li>
+                <li>
+                    <i class="fas fa-check-double icon"></i>
+                    <span><strong>Geçme Notu:</strong> Çan eğrisi uygulanır ancak 35 puan altı doğrudan kalır (FF).</span>
+                </li>
             </ul>
         </section>
-    </main>
+
+    </div>
+
 </body>
 </html>
