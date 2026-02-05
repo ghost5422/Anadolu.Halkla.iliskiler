@@ -2,147 +2,230 @@
 <html lang="tr">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Öğrenci Bilgi Sayfası</title>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Öğrenci Portalı | Halkla İlişkiler</title>
+  
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
   <style>
-    html, body {
+    /* 1. Temel Ayarlar */
+    :root {
+      --primary-color: #8B0000; /* Bordo */
+      --text-color: #2d3436;
+      --bg-gradient: linear-gradient(-45deg, #ff9a9e, #fad0c4, #fad0c4, #a10000);
+      --glass-bg: rgba(255, 255, 255, 0.90);
+      --shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
       margin: 0;
       padding: 0;
-      font-family: 'Roboto', sans-serif;
-      background-color: #f8f4f4;
-      color: #4a0000;
+      font-family: 'Inter', sans-serif;
+      background: var(--bg-gradient);
+      background-size: 400% 400%;
+      animation: gradientBG 15s ease infinite;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .container {
+      background: var(--glass-bg);
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+      padding: 40px 30px;
+      width: 90%;
+      max-width: 450px;
       text-align: center;
     }
 
-    .header {
-      margin: 20px 0;
+    /* Profil İkonu */
+    .profile-icon {
+      width: 80px;
+      height: 80px;
+      background: var(--primary-color);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+      margin: 0 auto 15px auto;
+      box-shadow: 0 4px 15px rgba(139, 0, 0, 0.3);
     }
 
-    .header p {
-      font-size: 22px;
-      font-weight: bold;
-      color: #a10000;
-      margin: 6px 0;
+    .header h1 {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--primary-color);
+      margin: 0;
     }
 
-    .social-container {
+    .header h2 {
+      font-size: 14px;
+      font-weight: 400;
+      color: #636e72;
+      margin: 5px 0 20px 0;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    /* Sosyal Medya */
+    .social-links {
       display: flex;
       justify-content: center;
       gap: 20px;
-      margin-top: 15px;
+      margin-bottom: 30px;
     }
 
-    .social-logo {
-      width: 45px;
-      height: 45px;
-      display: inline-block;
-      background-size: contain;
-      background-repeat: no-repeat;
-      background-position: center;
-      transition: transform 0.2s ease;
-    }
-
-    .social-logo:hover {
-      transform: scale(1.05);
-    }
-
-    .instagram { background-image: url('https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png'); }
-    .whatsapp { background-image: url('https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg'); }
-    .youtube { background-image: url('https://upload.wikimedia.org/wikipedia/commons/9/90/Logo_of_YouTube_%282013-2015%29.svg'); width: 85px; height: 55px; }
-
-    .button-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 16px;
-      margin-top: 30px;
-    }
-
-    .button-container button {
+    .social-links a {
+      text-decoration: none;
+      color: #555;
+      font-size: 24px;
+      transition: all 0.3s ease;
+      width: 40px;
+      height: 40px;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 10px;
-      width: 90%;
-      max-width: 340px;
-      padding: 14px 20px;
-      font-size: 17px;
+      border-radius: 50%;
+      background: white;
+    }
+
+    .social-links a:hover { transform: translateY(-3px); }
+    .social-links .fa-instagram:hover { color: #E1306C; }
+    .social-links .fa-whatsapp:hover { color: #25D366; }
+    .social-links .fa-youtube:hover { color: #FF0000; }
+
+    /* Buton Tasarımı (Anchor Tag) */
+    .link-list {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .link-btn {
+      position: relative;
+      display: flex;
+      align-items: center;
+      padding: 16px 20px;
+      background: #ffffff;
+      border: 1px solid #eee;
+      border-radius: 16px;
+      text-decoration: none; /* Link alt çizgisini kaldırır */
+      color: #2d3436;
       font-weight: 600;
-      color: #fff;
-      border: none;
-      border-radius: 14px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      font-size: 15px;
+      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      box-shadow: 0 2px 5px rgba(0,0,0,0.03);
     }
 
-    .btn-red { background: linear-gradient(135deg, #e53935, #c62828); }
-    .btn-blue { background: linear-gradient(135deg, #1e88e5, #1565c0); }
-    .btn-green { background: linear-gradient(135deg, #43a047, #2e7d32); }
-    .btn-orange { background: linear-gradient(135deg, #fb8c00, #ef6c00); }
-    .btn-purple { background: linear-gradient(135deg, #8e24aa, #6a1b9a); }
-    .btn-gray { background: linear-gradient(135deg, #607d8b, #455a64); }
-
-    .button-container button:hover {
-      transform: translateY(-2px) scale(1.02);
-      filter: brightness(1.1);
+    .link-btn i {
+      font-size: 18px;
+      width: 30px;
+      text-align: center;
+      margin-right: 15px;
+      color: var(--primary-color);
+      transition: color 0.3s ease;
     }
 
-    .button-container i { font-size: 18px; }
-
-    .info-text {
-      font-size: 16px;
-      font-weight: bold;
-      color: #4a0000;
-      margin-top: 10px;
+    .link-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      border-color: var(--primary-color);
     }
 
-    @media (max-width: 480px) {
-      .button-container button { width: 95%; }
-      .header p { font-size: 18px; }
+    .link-btn:hover i { transform: scale(1.1); }
+    
+    /* Ok İşareti */
+    .link-btn::after {
+      content: '\f054'; 
+      font-family: 'Font Awesome 6 Free';
+      font-weight: 900;
+      position: absolute;
+      right: 20px;
+      font-size: 12px;
+      color: #ccc;
+      transition: right 0.3s ease;
+    }
+
+    .link-btn:hover::after {
+      right: 15px;
+      color: var(--primary-color);
+    }
+
+    .footer-note {
+      margin-top: 30px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(0,0,0,0.05);
+      font-size: 12px;
+      color: #7f8c8d;
     }
   </style>
 </head>
 <body>
 
-  <div class="header">
-    <p>Halkla İlişkiler ve Reklamcılık</p>
-    <p>Öğrenci Bilgi Sayfası</p>
-
-    <div class="social-container">
-      <a href="https://www.instagram.com/aof_halklailiskilerreklamcilik/" target="_blank" class="social-logo instagram"></a>
-      <a href="https://chat.whatsapp.com/HxUm7sZkBkxAomZFu1tHU8" target="_blank" class="social-logo whatsapp"></a>
-      <a href="https://youtube.com/@aofcuabla?si=UbuzUzh9HpBcmuSy" target="_blank" class="social-logo youtube"></a>
+  <div class="container">
+    
+    <div class="profile-icon">
+      <i class="fas fa-graduation-cap"></i>
     </div>
+
+    <div class="header">
+      <h1>Halkla İlişkiler ve Reklamcılık</h1>
+      <h2>Öğrenci Bilgi Portalı</h2>
+    </div>
+
+    <div class="social-links">
+      <a href="https://www.instagram.com/aof_halklailiskilerreklamcilik/" target="_blank"><i class="fab fa-instagram"></i></a>
+      <a href="https://chat.whatsapp.com/HxUm7sZkBkxAomZFu1tHU8" target="_blank"><i class="fab fa-whatsapp"></i></a>
+      <a href="https://youtube.com/@aofcuabla?si=UbuzUzh9HpBcmuSy" target="_blank"><i class="fab fa-youtube"></i></a>
+    </div>
+
+    <div class="link-list">
+      
+      <a href="https://ekampus.anadolu.edu.tr/#/login" target="_blank" class="link-btn">
+        <i class="fas fa-university"></i>
+        <span>E-Kampüs Girişi</span>
+      </a>
+
+      <a href="https://aosogrenci.anadolu.edu.tr/" target="_blank" class="link-btn">
+        <i class="fas fa-id-card-alt"></i>
+        <span>Öğrenci Bilgi Sistemi (OBS)</span>
+      </a>
+
+      <a href="bilgi.html" class="link-btn">
+        <i class="fas fa-info-circle"></i>
+        <span>Bölüm Hakkında Bilgi</span>
+      </a>
+
+      <a href="test.html" class="link-btn">
+        <i class="fas fa-calculator"></i>
+        <span>Vize & Final Not Hesapla</span>
+      </a>
+
+      <a href="kontrol.html" class="link-btn">
+        <i class="fas fa-check-double"></i>
+        <span>Çıkmış Sorular Kontrolü</span>
+      </a>
+
+    </div>
+
+    <div class="footer-note">
+      <p><i class="fas fa-lightbulb" style="color: #f1c40f;"></i> Not: Çıkmış sorularınızı sistem üzerinden test edebilir, anlık doğru-yanlış kontrolü yapabilirsiniz.</p>
+    </div>
+
   </div>
-
-  <div class="button-container">
-    <button class="btn-red" onclick="navigateTo('https://ekampus.anadolu.edu.tr/#/login')">
-      <i class="fas fa-university"></i> E Kampüs
-    </button>
-    <button class="btn-blue" onclick="navigateTo('https://aosogrenci.anadolu.edu.tr/')">
-      <i class="fas fa-id-card-alt"></i> Öğrenci Bilgi Sistemi
-    </button>
-    <button class="btn-purple" onclick="navigateTo('bilgi.html')">
-      <i class="fas fa-info-circle"></i> Bölüm Bilgilendirme
-    </button>
-    <button class="btn-orange" onclick="navigateTo('test.html')">
-      <i class="fas fa-calculator"></i> Not Hesaplayıcı Vize & Final
-    </button>
-    <button class="btn-gray" onclick="navigateTo('kontrol.html')">
-      <i class="fas fa-file-alt"></i> Çıkmış Sorular Kontrol
-    </button>
-  </div>
-
-  <p class="info-text"><i class="fas fa-lightbulb"></i> E-Kampüs'teki çıkmış soruları buradan test edebilir, doğru-yanlış kontrolü yapabilirsiniz.</p>
-
-  <script>
-    function navigateTo(url) {
-      window.open(url, '_blank');
-    }
-  </script>
 
 </body>
 </html>
