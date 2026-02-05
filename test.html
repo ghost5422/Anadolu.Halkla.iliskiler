@@ -2,183 +2,241 @@
 <html lang="tr">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
   <title>Not Hesaplayıcı</title>
+  
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet"/>
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11">
-</script>
-  <style>
-    :root {
-      --bg-light: #f8f9fa;
-      --card-light: #ffffff;
-      --text-light: #1a1a1a;
-      --primary: #5b4bff;
-      --secondary: #4a00e0;
-      --accent: #8a2be2;
+  
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-      --bg-dark: #0d1117;
-      --card-dark: #161b22;
-      --text-dark: #e6edf3;
+  <style>
+    /* 1. Temel Değişkenler (Bordo Tema) */
+    :root {
+      --primary: #8B0000; /* Bordo */
+      --primary-hover: #a00000;
+      --bg-gradient: linear-gradient(-45deg, #ff9a9e, #fad0c4, #fad0c4, #a10000);
+      
+      --card-bg: rgba(255, 255, 255, 0.90);
+      --text-color: #2d3436;
+      --input-bg: #ffffff;
+      --border-color: #e0e0e0;
+      
+      /* Durum Renkleri */
+      --success: #27ae60;
+      --error: #c0392b;
+      --warning: #f39c12;
     }
 
+    /* Karanlık Mod Değişkenleri */
+    body.dark {
+      --card-bg: rgba(30, 30, 30, 0.95);
+      --text-color: #ecf0f1;
+      --input-bg: #2c3e50;
+      --border-color: #444;
+      --bg-gradient: linear-gradient(-45deg, #232526, #414345);
+    }
+
+    * { box-sizing: border-box; }
+
     body {
-      font-family: 'Roboto', sans-serif;
-      background: var(--bg-light);
-      color: var(--text-light);
+      font-family: 'Inter', sans-serif;
+      background: var(--bg-gradient);
+      background-size: 400% 400%;
+      animation: gradientBG 15s ease infinite;
+      min-height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
-      min-height: 100vh;
       margin: 0;
+      color: var(--text-color);
       transition: background 0.4s, color 0.4s;
+      padding: 20px;
     }
 
-    body.dark {
-      background: var(--bg-dark);
-      color: var(--text-dark);
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
     }
 
+    /* 2. Ana Kart */
     .container {
-      background: var(--card-light);
-      border-radius: 16px;
-      box-shadow: 0 5px 25px rgba(0, 0, 0, 0.15);
-      padding: 25px;
-      width: 380px;
-      transition: all 0.4s ease;
+      background: var(--card-bg);
+      border-radius: 24px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+      padding: 35px 30px;
+      width: 100%;
+      max-width: 450px;
+      transition: all 0.3s ease;
+      position: relative;
     }
 
-    body.dark .container {
-      background: var(--card-dark);
-      box-shadow: 0 0 15px rgba(255, 255, 255, 0.05);
-    }
-
+    /* Başlık */
     h2 {
       text-align: center;
-      color: var(--secondary);
-      margin-bottom: 20px;
-      font-size: 26px;
-      animation: fadeInDown 1s ease;
+      color: var(--primary);
+      margin: 10px 0 25px 0;
+      font-size: 24px;
+      font-weight: 700;
     }
 
-    @keyframes fadeInDown {
-      from {opacity: 0; transform: translateY(-10px);}
-      to {opacity: 1; transform: translateY(0);}
-    }
+    body.dark h2 { color: #ff6b6b; }
 
-    label {
-      font-weight: bold;
-      margin: 8px 0;
+    /* Geri Dön Butonu */
+    .back-btn {
       display: flex;
       align-items: center;
       gap: 8px;
+      background: none;
+      border: 1px solid var(--border-color);
+      padding: 8px 15px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 14px;
+      color: var(--text-color);
+      margin-bottom: 20px;
+      transition: all 0.3s;
+      text-decoration: none;
+      width: fit-content;
     }
+
+    .back-btn:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+      background: rgba(139, 0, 0, 0.05);
+    }
+
+    /* Form Elemanları */
+    label {
+      font-weight: 600;
+      margin: 12px 0 6px 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+    }
+    
+    label i { color: var(--primary); }
+    body.dark label i { color: #ff6b6b; }
 
     input {
       width: 100%;
-      padding: 10px;
-      border: 1px solid var(--primary);
-      border-radius: 6px;
-      background: rgba(90, 90, 255, 0.05);
-      font-size: 15px;
-      color: inherit;
+      padding: 14px;
+      border: 2px solid var(--border-color);
+      border-radius: 12px;
+      background: var(--input-bg);
+      font-size: 16px;
+      color: var(--text-color);
       transition: 0.3s;
+      font-family: 'Inter', sans-serif;
     }
 
     input:focus {
-      border-color: var(--accent);
+      border-color: var(--primary);
       outline: none;
-      box-shadow: 0 0 5px var(--accent);
+      box-shadow: 0 0 0 4px rgba(139, 0, 0, 0.1);
     }
 
-    button {
-      width: 100%;
-      padding: 12px;
+    /* Butonlar */
+    .btn-group {
+      display: flex;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    button.action-btn {
+      flex: 1;
+      padding: 14px;
       border: none;
-      border-radius: 6px;
-      font-weight: bold;
+      border-radius: 12px;
+      font-weight: 600;
       font-size: 16px;
-      color: #fff;
       cursor: pointer;
       transition: 0.3s;
-      margin-top: 10px;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 8px;
-      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
     }
 
-    button:hover {
-      opacity: 0.9;
-      transform: scale(1.03);
-    }
+    .btn-calc { background: linear-gradient(135deg, var(--primary), #c0392b); }
+    .btn-reset { background: #95a5a6; }
+    
+    button.action-btn:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+    button.action-btn:active { transform: scale(0.98); }
 
+    /* Sonuç Alanı */
     .result {
       text-align: center;
-      margin-top: 15px;
-      font-size: 18px;
-      font-weight: bold;
-      transition: all 0.3s ease;
+      margin-top: 20px;
+      padding: 15px;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 16px;
+      display: none; /* JS ile açılacak */
     }
 
-    .pass { color: #00c853; }
-    .fail { color: #ff1744; }
-    .yellow { color: #ffc107; }
+    .result.visible { display: block; animation: popIn 0.5s ease; }
+    @keyframes popIn { from{transform: scale(0.9); opacity:0;} to{transform: scale(1); opacity:1;} }
 
-    .info {
-      font-size: 14px;
-      text-align: center;
-      margin-top: 15px;
-      opacity: 0.8;
+    .pass { background: rgba(39, 174, 96, 0.1); color: var(--success); border: 1px solid var(--success); }
+    .fail { background: rgba(192, 57, 43, 0.1); color: var(--error); border: 1px solid var(--error); }
+    .yellow { background: rgba(243, 156, 18, 0.1); color: var(--warning); border: 1px solid var(--warning); }
+
+    /* Tablo */
+    .table-container {
+      margin-top: 25px;
+      overflow-x: auto;
+      border-radius: 12px;
+      border: 1px solid var(--border-color);
     }
 
     table {
       width: 100%;
-      margin-top: 20px;
       border-collapse: collapse;
-      font-size: 14px;
-      animation: fadeIn 0.7s ease;
-    }
-
-    @keyframes fadeIn {
-      from {opacity: 0;}
-      to {opacity: 1;}
+      font-size: 13px;
     }
 
     th, td {
-      border: 1px solid #aaa;
-      padding: 8px;
+      padding: 12px 8px;
       text-align: center;
+      border-bottom: 1px solid var(--border-color);
     }
 
     th {
-      background: var(--secondary);
-      color: #fff;
+      background: rgba(139, 0, 0, 0.05);
+      color: var(--primary);
+      font-weight: 700;
+    }
+    
+    body.dark th { background: rgba(255, 255, 255, 0.1); color: #ff6b6b; }
+
+    tr:last-child td { border-bottom: none; }
+
+    /* Alt Bilgi */
+    .info {
+      font-size: 12px;
+      text-align: center;
+      margin-top: 20px;
+      opacity: 0.7;
+      padding-top: 15px;
+      border-top: 1px solid var(--border-color);
     }
 
-    body.dark th {
-      background: var(--accent);
-    }
-
-    tr:nth-child(even) {
-      background: rgba(90, 90, 255, 0.08);
-    }
-
-    body.dark tr:nth-child(even) {
-      background: rgba(255, 255, 255, 0.05);
-    }
-
+    /* Tema Değiştirici Buton */
     .theme-toggle {
       position: absolute;
-      top: 15px;
-      right: 15px;
+      top: 20px;
+      right: 20px;
       cursor: pointer;
-      background: var(--secondary);
-      color: white;
+      background: transparent;
+      color: var(--text-color);
+      border: 1px solid var(--border-color);
       border-radius: 50%;
-      width: 38px;
-      height: 38px;
+      width: 40px;
+      height: 40px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -187,211 +245,224 @@
     }
 
     .theme-toggle:hover {
-      transform: rotate(15deg) scale(1.1);
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
     }
-
-    @media (max-width: 480px) {
-      .container { width: 90%; }
-      h2 { font-size: 22px; }
-    }
-
-.conditional { color: #ff9800; }
 
   </style>
 </head>
 <body>
-  <div class="theme-toggle" onclick="toggleTheme()"><i class="fas fa-moon"></i></div>
 
   <div class="container">
+    
+    <div class="theme-toggle" onclick="toggleTheme()" title="Temayı Değiştir">
+      <i class="fas fa-moon"></i>
+    </div>
+
     <h2><i class="fas fa-calculator"></i> Not Hesaplayıcı</h2>
 
-<button onclick="window.location.href='index.html'" style="margin-bottom: 15px; padding: 8px 12px; border-radius: 6px; border: 1px solid #ccc; background-color: #eee; cursor: pointer; display: flex; align-items: center; gap: 5px;">
-  <i class="fas fa-arrow-left"></i> Ana Sayfaya Dön
-</button>
+    <a href="index.html" class="back-btn">
+      <i class="fas fa-arrow-left"></i> Ana Sayfaya Dön
+    </a>
 
-    <label><i class="fas fa-book"></i> Ders Adı:</label>
-<input type="text" id="ders" placeholder="Ders adını girin">
+    <label for="ders"><i class="fas fa-book"></i> Ders Adı</label>
+    <input type="text" id="ders" placeholder="Örn: İletişim Tarihi">
 
-    <label><i class="fas fa-file-alt"></i> Vize Notu:</label>
-    <input type="number" id="vize" placeholder="Vize puanınızı girin">
+    <div style="display: flex; gap: 15px;">
+      <div style="flex:1;">
+        <label for="vize"><i class="fas fa-file-alt"></i> Vize</label>
+        <input type="number" id="vize" placeholder="0-100">
+      </div>
+      <div style="flex:1;">
+        <label for="final"><i class="fas fa-file-signature"></i> Final</label>
+        <input type="number" id="final" placeholder="0-100">
+      </div>
+    </div>
 
-    <label><i class="fas fa-file-signature"></i> Final Notu:</label>
-    <input type="number" id="final" placeholder="Final puanınızı girin">
-
-    <button onclick="hesapla()"><i class="fas fa-equals"></i> Hesapla</button>
-    <button onclick="sifirla()"><i class="fas fa-trash"></i> Sıfırla</button>
+    <div class="btn-group">
+      <button class="action-btn btn-calc" onclick="hesapla()">
+        <i class="fas fa-equals"></i> Hesapla
+      </button>
+      <button class="action-btn btn-reset" onclick="sifirla()">
+        <i class="fas fa-trash"></i> Temizle
+      </button>
+    </div>
 
     <div class="result" id="result"></div>
 
-    <table id="gecmis">
-      <thead>
-  <tr>
-    <th>Tarih</th>
-    <th>Ders</th>
-    <th>Vize</th>
-    <th>Final</th>
-    <th>Sonuç</th>
-    <th>Durum</th>
-  </tr>
-</thead>
-      <tbody></tbody>
-    </table>
+    <div class="table-container">
+      <table id="gecmis">
+        <thead>
+          <tr>
+            <th>Ders</th>
+            <th>Vize</th>
+            <th>Final</th>
+            <th>Ort.</th>
+            <th>Durum</th>
+          </tr>
+        </thead>
+        <tbody>
+          </tbody>
+      </table>
+    </div>
 
     <div class="info">
-      <p><i class="fas fa-info-circle"></i> Geçme Notu: 35</p>
-      <p><i class="fas fa-percentage"></i> Vize %30, Final %70 etkili</p>
+      <p><i class="fas fa-info-circle"></i> Geçme Notu: 35 | Vize %30 + Final %70</p>
     </div>
   </div>
 
   <script>
-const resultDiv = document.getElementById("result");
-const tableBody = document.querySelector("#gecmis tbody");
-const themeToggle = document.querySelector(".theme-toggle");
+    const resultDiv = document.getElementById("result");
+    const tableBody = document.querySelector("#gecmis tbody");
+    const themeToggle = document.querySelector(".theme-toggle");
+    const GECME_NOTU = 35;
 
-/* === GEÇME NOTU === */
-const GECME_NOTU = 35;
-
-document.addEventListener("DOMContentLoaded", () => {
-  loadTable();
-  if (localStorage.getItem("theme") === "dark") {
-    document.body.classList.add("dark");
-    themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
-  }
-});
-
-/* === LOCAL STORAGE === */
-function saveToLocal(row) {
-  const data = JSON.parse(localStorage.getItem("gecmisNotlar") || "[]");
-  data.push(row);
-  localStorage.setItem("gecmisNotlar", JSON.stringify(data));
-}
-
-/* === HESAPLAMA === */
-function hesapla() {
-  const ders = document.getElementById("ders").value.trim();
-  const vizeInput = document.getElementById("vize").value;
-  const finalInput = document.getElementById("final").value;
-
-  if (ders === "") {
-    Swal.fire("Eksik bilgi", "Lütfen ders adını girin!", "warning");
-    return;
-  }
-
-  const vize = parseFloat(vizeInput);
-  const final = parseFloat(finalInput);
-
-  if (isNaN(vize)) {
-    Swal.fire("Eksik bilgi", "Lütfen vize notunu girin!", "warning");
-    return;
-  }
-
-  const now = new Date().toLocaleString("tr-TR");
-
-  /* === FINAL YOKSA → GEREKLİ FINAL === */
-  if (finalInput === "") {
-    const gerekliFinal = (GECME_NOTU - (vize * 0.30)) / 0.70;
-
-    let sonuc = "";
-    let durum = "Bekleniyor";
-
-    if (gerekliFinal > 100) {
-      sonuc = "Bu vize notu ile geçmek mümkün değil";
-      durum = "Kaldı";
-      resultDiv.className = "result fail";
-    } else if (gerekliFinal <= 0) {
-      sonuc = "Finale girmeden geçti";
-      durum = "Geçti";
-      resultDiv.className = "result pass";
-    } else {
-      sonuc = `Geçmek için gerekli final: ${gerekliFinal.toFixed(2)}`;
-      resultDiv.className = "result yellow";
-    }
-
-    resultDiv.textContent = sonuc;
-
-    saveToLocal({
-      tarih: now,
-      ders,
-      vize,
-      final: "",
-      sonuc,
-      durum
+    /* Sayfa Yüklendiğinde */
+    document.addEventListener("DOMContentLoaded", () => {
+      loadTable();
+      // Kayıtlı tema var mı kontrol et
+      if (localStorage.getItem("theme") === "dark") {
+        document.body.classList.add("dark");
+        themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+      }
     });
 
-    loadTable();
-    return;
-  }
+    /* === HESAPLAMA FONKSİYONU === */
+    function hesapla() {
+      const ders = document.getElementById("ders").value.trim();
+      const vizeInput = document.getElementById("vize").value;
+      const finalInput = document.getElementById("final").value;
 
-  /* === VIZE + FINAL === */
-  if (isNaN(final)) {
-    Swal.fire("Hatalı giriş", "Final notu geçerli değil!", "warning");
-    return;
-  }
+      // 1. Validasyon
+      if (ders === "") {
+        Swal.fire({icon: 'warning', title: 'Eksik Bilgi', text: 'Lütfen ders adını giriniz!', confirmButtonColor: '#8B0000'});
+        return;
+      }
+      if (vizeInput === "") {
+        Swal.fire({icon: 'warning', title: 'Eksik Bilgi', text: 'Lütfen Vize notunu giriniz!', confirmButtonColor: '#8B0000'});
+        return;
+      }
 
-  const ortalama = ((vize * 0.30) + (final * 0.70)).toFixed(2);
-  const durum = ortalama >= GECME_NOTU ? "Geçti" : "Kaldı";
+      const vize = parseFloat(vizeInput);
+      const now = new Date().toLocaleDateString("tr-TR");
 
-  resultDiv.textContent = `Ortalama: ${ortalama} - ${durum}`;
-  resultDiv.className = "result " + (durum === "Geçti" ? "pass" : "fail");
+      // 2. Senaryo: Sadece Vize Girildi (Final Tahmini)
+      if (finalInput === "") {
+        const gerekliFinal = (GECME_NOTU - (vize * 0.30)) / 0.70;
+        let sonucMetni = "";
+        let durumSinifi = "";
+        let durumKisa = "";
 
-  saveToLocal({
-    tarih: now,
-    ders,
-    vize,
-    final,
-    sonuc: ortalama,
-    durum
-  });
+        if (gerekliFinal > 100) {
+          sonucMetni = "Vize çok düşük, finalden 100 alsan bile geçemezsin.";
+          durumSinifi = "fail";
+          durumKisa = "Kaldı";
+        } else if (gerekliFinal <= 0) {
+          sonucMetni = "Tebrikler! Finale girmeden geçtiniz (Barajı aştın).";
+          durumSinifi = "pass";
+          durumKisa = "Geçti";
+        } else {
+          sonucMetni = `Geçmek için finalden en az <b>${Math.ceil(gerekliFinal)}</b> almalısın.`;
+          durumSinifi = "yellow";
+          durumKisa = "Bekliyor";
+        }
 
-  loadTable();
-}
+        gosterSonuc(sonucMetni, durumSinifi);
+        saveToLocal({ tarih: now, ders, vize, final: "-", sonuc: "-", durum: durumKisa });
+        loadTable();
+        return;
+      }
 
-/* === TABLO === */
-function loadTable() {
-  const data = JSON.parse(localStorage.getItem("gecmisNotlar") || "[]");
-  tableBody.innerHTML = "";
+      // 3. Senaryo: Vize + Final Girildi (Ortalama Hesaplama)
+      const final = parseFloat(finalInput);
+      const ortalama = ((vize * 0.30) + (final * 0.70)).toFixed(2);
+      const gectiMi = ortalama >= GECME_NOTU;
+      
+      const durumSinifi = gectiMi ? "pass" : "fail";
+      const durumMetni = gectiMi ? "GEÇTİ" : "KALDI";
+      const icon = gectiMi ? '<i class="fas fa-check-circle"></i>' : '<i class="fas fa-times-circle"></i>';
 
-  data.forEach(r => {
-    const tr = document.createElement("tr");
-    tr.innerHTML = `
-      <td>${r.tarih}</td>
-      <td>${r.ders}</td>
-      <td>${r.vize}</td>
-      <td>${r.final}</td>
-      <td>${r.sonuc}</td>
-      <td>${r.durum}</td>
-    `;
-    tableBody.appendChild(tr);
-  });
-}
+      gosterSonuc(`${icon} Ortalama: <b>${ortalama}</b> - ${durumMetni}`, durumSinifi);
+      
+      saveToLocal({
+        tarih: now,
+        ders,
+        vize,
+        final,
+        sonuc: ortalama,
+        durum: durumMetni
+      });
 
-/* === SIFIRLA === */
-function sifirla() {
-  Swal.fire({
-    title: "Emin misiniz?",
-    text: "Tüm kayıtlar silinecek!",
-    icon: "warning",
-    showCancelButton: true,
-    confirmButtonText: "Evet, sil!",
-    cancelButtonText: "Vazgeç"
-  }).then(res => {
-    if (res.isConfirmed) {
-      localStorage.removeItem("gecmisNotlar");
       loadTable();
-      Swal.fire("Silindi!", "Tüm kayıtlar silindi.", "success");
     }
-  });
-}
 
-/* === TEMA === */
-function toggleTheme() {
-  document.body.classList.toggle("dark");
-  const isDark = document.body.classList.contains("dark");
-  themeToggle.innerHTML = isDark
-    ? '<i class="fas fa-sun"></i>'
-    : '<i class="fas fa-moon"></i>';
-  localStorage.setItem("theme", isDark ? "dark" : "light");
-}
-</script>
+    /* === YARDIMCI FONKSİYONLAR === */
+    function gosterSonuc(htmlText, className) {
+      resultDiv.innerHTML = htmlText;
+      resultDiv.className = "result visible " + className;
+    }
+
+    function saveToLocal(row) {
+      const data = JSON.parse(localStorage.getItem("gecmisNotlar") || "[]");
+      data.push(row);
+      localStorage.setItem("gecmisNotlar", JSON.stringify(data));
+    }
+
+    function loadTable() {
+      const data = JSON.parse(localStorage.getItem("gecmisNotlar") || "[]");
+      tableBody.innerHTML = "";
+      
+      // Listeyi ters çevir (en son eklenen en üstte)
+      data.slice().reverse().forEach(r => {
+        const tr = document.createElement("tr");
+        
+        let renk = "";
+        if(r.durum === "Geçti" || r.durum === "GEÇTİ") renk = "color: var(--success); font-weight:bold;";
+        else if(r.durum === "Kaldı" || r.durum === "KALDI") renk = "color: var(--error); font-weight:bold;";
+        
+        tr.innerHTML = `
+          <td style="text-align:left;">${r.ders}</td>
+          <td>${r.vize}</td>
+          <td>${r.final}</td>
+          <td>${r.sonuc}</td>
+          <td style="${renk}">${r.durum}</td>
+        `;
+        tableBody.appendChild(tr);
+      });
+
+      if(data.length === 0) {
+        tableBody.innerHTML = '<tr><td colspan="5" style="color:#999;">Henüz kayıt yok.</td></tr>';
+      }
+    }
+
+    function sifirla() {
+      Swal.fire({
+        title: "Tüm kayıtlar silinsin mi?",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#8B0000",
+        cancelButtonColor: "#95a5a6",
+        confirmButtonText: "Evet, Sil",
+        cancelButtonText: "Vazgeç"
+      }).then(res => {
+        if (res.isConfirmed) {
+          localStorage.removeItem("gecmisNotlar");
+          loadTable();
+          resultDiv.className = "result"; // Sonucu gizle
+          resultDiv.innerHTML = "";
+          Swal.fire({title:"Silindi!", icon:"success", confirmButtonColor: "#8B0000"});
+        }
+      });
+    }
+
+    function toggleTheme() {
+      document.body.classList.toggle("dark");
+      const isDark = document.body.classList.contains("dark");
+      
+      themeToggle.innerHTML = isDark ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+      localStorage.setItem("theme", isDark ? "dark" : "light");
+    }
+  </script>
 </body>
 </html>
