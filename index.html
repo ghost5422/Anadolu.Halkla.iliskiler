@@ -9,183 +9,140 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
   <style>
-    /* 1. Temel Ayarlar */
+    /* -------------------------------------- */
+    /* 1. TASARIM KISMI (AYNI)                */
+    /* -------------------------------------- */
     :root {
-      --primary-color: #8B0000; /* Bordo */
-      --text-color: #2d3436;
+      --primary-color: #8B0000;
       --bg-gradient: linear-gradient(-45deg, #ff9a9e, #fad0c4, #fad0c4, #a10000);
       --glass-bg: rgba(255, 255, 255, 0.90);
       --shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
     }
-
     * { box-sizing: border-box; }
-
     body {
-      margin: 0;
-      padding: 0;
+      margin: 0; padding: 0;
       font-family: 'Inter', sans-serif;
       background: var(--bg-gradient);
       background-size: 400% 400%;
       animation: gradientBG 15s ease infinite;
       min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      display: flex; justify-content: center; align-items: center;
     }
-
-    @keyframes gradientBG {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
+    @keyframes gradientBG { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
 
     .container {
       background: var(--glass-bg);
       border-radius: 24px;
       box-shadow: var(--shadow);
       padding: 40px 30px;
-      width: 90%;
-      max-width: 450px;
-      text-align: center;
+      width: 90%; max-width: 450px;
+      text-align: center; margin-bottom: 80px;
     }
 
-    /* Profil İkonu */
     .profile-icon {
-      width: 80px;
-      height: 80px;
-      background: var(--primary-color);
-      color: white;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 32px;
-      margin: 0 auto 15px auto;
+      width: 80px; height: 80px;
+      background: var(--primary-color); color: white;
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      font-size: 32px; margin: 0 auto 15px auto;
       box-shadow: 0 4px 15px rgba(139, 0, 0, 0.3);
     }
+    .header h1 { font-size: 20px; font-weight: 700; color: var(--primary-color); margin: 0; }
+    .header h2 { font-size: 14px; font-weight: 400; color: #636e72; margin: 5px 0 20px 0; text-transform: uppercase; letter-spacing: 1px; }
 
-    .header h1 {
-      font-size: 20px;
-      font-weight: 700;
-      color: var(--primary-color);
-      margin: 0;
-    }
-
-    .header h2 {
-      font-size: 14px;
-      font-weight: 400;
-      color: #636e72;
-      margin: 5px 0 20px 0;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-
-    /* Sosyal Medya */
-    .social-links {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      margin-bottom: 30px;
-    }
-
+    .social-links { display: flex; justify-content: center; gap: 20px; margin-bottom: 30px; }
     .social-links a {
-      text-decoration: none;
-      color: #555;
-      font-size: 24px;
-      transition: all 0.3s ease;
-      width: 40px;
-      height: 40px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 50%;
-      background: white;
+      text-decoration: none; color: #555; font-size: 24px;
+      width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;
+      border-radius: 50%; background: white; transition: 0.3s;
     }
+    .social-links a:hover { transform: translateY(-3px); color: var(--primary-color); }
 
-    .social-links a:hover { transform: translateY(-3px); }
-    .social-links .fa-instagram:hover { color: #E1306C; }
-    .social-links .fa-whatsapp:hover { color: #25D366; }
-    .social-links .fa-youtube:hover { color: #FF0000; }
-
-    /* Buton Tasarımı (Anchor Tag) */
-    .link-list {
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-    }
-
+    .link-list { display: flex; flex-direction: column; gap: 15px; }
     .link-btn {
-      position: relative;
-      display: flex;
-      align-items: center;
-      padding: 16px 20px;
-      background: #ffffff;
-      border: 1px solid #eee;
-      border-radius: 16px;
-      text-decoration: none; /* Link alt çizgisini kaldırır */
-      color: #2d3436;
-      font-weight: 600;
-      font-size: 15px;
-      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-      box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+      position: relative; display: flex; align-items: center; padding: 16px 20px;
+      background: #ffffff; border: 1px solid #eee; border-radius: 16px;
+      text-decoration: none; color: #2d3436; font-weight: 600; font-size: 15px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.03); transition: 0.3s;
     }
-
-    .link-btn i {
-      font-size: 18px;
-      width: 30px;
-      text-align: center;
-      margin-right: 15px;
-      color: var(--primary-color);
-      transition: color 0.3s ease;
-    }
-
-    .link-btn:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-      border-color: var(--primary-color);
-    }
-
+    .link-btn i { font-size: 18px; width: 30px; text-align: center; margin-right: 15px; color: var(--primary-color); }
+    .link-btn:hover { transform: translateY(-3px); border-color: var(--primary-color); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
     .link-btn:hover i { transform: scale(1.1); }
-    
-    /* Ok İşareti */
     .link-btn::after {
-      content: '\f054'; 
-      font-family: 'Font Awesome 6 Free';
-      font-weight: 900;
-      position: absolute;
-      right: 20px;
-      font-size: 12px;
-      color: #ccc;
-      transition: right 0.3s ease;
+      content: '\f054'; font-family: 'Font Awesome 6 Free'; font-weight: 900;
+      position: absolute; right: 20px; font-size: 12px; color: #ccc; transition: right 0.3s;
+    }
+    .link-btn:hover::after { right: 15px; color: var(--primary-color); }
+
+    .footer-note { margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(0,0,0,0.05); font-size: 12px; color: #7f8c8d; }
+
+    /* -------------------------------------- */
+    /* 2. CHATBOT CSS                         */
+    /* -------------------------------------- */
+    .chat-btn {
+        position: fixed; bottom: 20px; right: 20px;
+        background-color: var(--primary-color); color: white;
+        border: none; padding: 15px 25px; border-radius: 50px;
+        font-size: 16px; font-weight: 600; cursor: pointer;
+        box-shadow: 0 4px 15px rgba(139, 0, 0, 0.4); z-index: 9999;
+        display: flex; align-items: center; gap: 10px; transition: transform 0.3s;
+    }
+    .chat-btn:hover { transform: scale(1.05); }
+
+    .chat-container {
+        position: fixed; bottom: 85px; right: 20px;
+        width: 350px; max-width: 90%; height: 450px;
+        background: white; border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+        display: none; flex-direction: column; overflow: hidden;
+        z-index: 9999; font-family: 'Inter', sans-serif; border: 1px solid #eee;
     }
 
-    .link-btn:hover::after {
-      right: 15px;
-      color: var(--primary-color);
-    }
+    .chat-header { background: var(--primary-color); color: white; padding: 15px; display: flex; justify-content: space-between; align-items: center; font-weight: 600; }
+    .close-chat { background: none; border: none; color: white; font-size: 18px; cursor: pointer; opacity: 0.8; }
+    .close-chat:hover { opacity: 1; }
+    
+    .chat-body { flex: 1; padding: 15px; overflow-y: auto; background: #f8f9fa; display: flex; flex-direction: column; gap: 12px; }
 
-    .footer-note {
-      margin-top: 30px;
-      padding-top: 20px;
-      border-top: 1px solid rgba(0,0,0,0.05);
-      font-size: 12px;
-      color: #7f8c8d;
+    .message { max-width: 85%; padding: 12px 16px; border-radius: 16px; font-size: 14px; line-height: 1.5; display: flex; align-items: flex-start; gap: 10px; animation: fadeIn 0.3s ease; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+
+    .bot-message { background: #e9ecef; color: #333; border-bottom-left-radius: 4px; }
+    .bot-message i { color: var(--primary-color); font-size: 16px; margin-top: 4px; }
+    .bot-message strong { color: var(--primary-color); font-weight: 700; }
+    .bot-message ul { padding-left: 20px; margin: 5px 0; }
+    .bot-message li { margin-bottom: 5px; }
+
+    .chat-link-btn {
+        display: inline-block; margin-top: 8px; padding: 8px 15px;
+        background-color: var(--primary-color); color: white; text-decoration: none;
+        border-radius: 20px; font-size: 12px; font-weight: 600; transition: 0.2s;
     }
+    .chat-link-btn:hover { background-color: #a00000; transform: translateY(-2px); }
+
+    .user-message { background: var(--primary-color); color: white; align-self: flex-end; border-bottom-right-radius: 4px; flex-direction: row-reverse; }
+    .user-message i { color: rgba(255,255,255,0.8); font-size: 16px; margin-top: 4px; }
+    
+    .chat-footer { padding: 12px; background: white; display: flex; gap: 8px; border-top: 1px solid #eee; }
+    .chat-footer input { flex: 1; padding: 12px; border: 1px solid #ddd; border-radius: 25px; outline: none; transition: border 0.3s; }
+    .chat-footer input:focus { border-color: var(--primary-color); }
+    .chat-footer button { background: var(--primary-color); color: white; border: none; width: 45px; height: 45px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+
+    /* Yazıyor */
+    .typing-indicator { display: flex; align-items: center; gap: 4px; padding: 5px 0; }
+    .typing-indicator span { width: 6px; height: 6px; background-color: #888; border-radius: 50%; animation: typing 1.4s infinite ease-in-out both; }
+    .typing-indicator span:nth-child(1) { animation-delay: -0.32s; }
+    .typing-indicator span:nth-child(2) { animation-delay: -0.16s; }
+    @keyframes typing { 0%, 80%, 100% { transform: scale(0); opacity: 0.5; } 40% { transform: scale(1); opacity: 1; } }
   </style>
 </head>
 <body>
 
   <div class="container">
-    
-    <div class="profile-icon">
-      <i class="fas fa-graduation-cap"></i>
-    </div>
-
+    <div class="profile-icon"><i class="fas fa-graduation-cap"></i></div>
     <div class="header">
       <h1>Halkla İlişkiler ve Reklamcılık</h1>
       <h2>Öğrenci Bilgi Portalı</h2>
     </div>
-
     <div class="social-links">
       <a href="https://www.instagram.com/aof_halklailiskilerreklamcilik/" target="_blank"><i class="fab fa-instagram"></i></a>
       <a href="https://chat.whatsapp.com/HxUm7sZkBkxAomZFu1tHU8" target="_blank"><i class="fab fa-whatsapp"></i></a>
@@ -193,39 +150,225 @@
     </div>
 
     <div class="link-list">
-      
-      <a href="https://ekampus.anadolu.edu.tr/#/login" target="_blank" class="link-btn">
-        <i class="fas fa-university"></i>
-        <span>E-Kampüs Girişi</span>
-      </a>
-
-      <a href="https://aosogrenci.anadolu.edu.tr/" target="_blank" class="link-btn">
-        <i class="fas fa-id-card-alt"></i>
-        <span>Öğrenci Bilgi Sistemi (OBS)</span>
-      </a>
-
-      <a href="bilgi.html" class="link-btn">
-        <i class="fas fa-info-circle"></i>
-        <span>Bölüm Hakkında Bilgi</span>
-      </a>
-
-      <a href="test.html" class="link-btn">
-        <i class="fas fa-calculator"></i>
-        <span>Vize & Final Not Hesapla</span>
-      </a>
-
-      <a href="kontrol.html" class="link-btn">
-        <i class="fas fa-check-double"></i>
-        <span>Çıkmış Sorular Kontrolü</span>
-      </a>
-
+      <a href="https://ekampus.anadolu.edu.tr/#/login" target="_blank" class="link-btn"><i class="fas fa-university"></i> <span>E-Kampüs Girişi</span></a>
+      <a href="https://aosogrenci.anadolu.edu.tr/" target="_blank" class="link-btn"><i class="fas fa-id-card-alt"></i> <span>Öğrenci Bilgi Sistemi (OBS)</span></a>
+      <a href="bilgi.html" class="link-btn"><i class="fas fa-info-circle"></i> <span>Bölüm Hakkında Bilgi</span></a>
+      <a href="test.html" class="link-btn"><i class="fas fa-calculator"></i> <span>Vize & Final Not Hesapla</span></a>
+      <a href="kontrol.html" class="link-btn"><i class="fas fa-check-double"></i> <span>Çıkmış Sorular Kontrolü</span></a>
     </div>
 
     <div class="footer-note">
       <p><i class="fas fa-lightbulb" style="color: #f1c40f;"></i> Not: Çıkmış sorularınızı sistem üzerinden test edebilir, anlık doğru-yanlış kontrolü yapabilirsiniz.</p>
     </div>
-
   </div>
 
+  <button class="chat-btn" onclick="toggleChat()"><i class="fas fa-robot"></i> <span>Sanal Asistan</span></button>
+
+  <div class="chat-container" id="chatBox">
+      <div class="chat-header">
+          <span><i class="fas fa-comment-dots"></i> AÖF Rehber</span>
+          <button onclick="toggleChat()" class="close-chat"><i class="fas fa-times"></i></button>
+      </div>
+      <div class="chat-body" id="chatBody">
+          <div class="message bot-message">
+              <i class="fas fa-robot"></i> 
+              <div>Merhaba! Kayıt yenileme, sınavlar veya kariyer hakkında sorabilirsin. 👋</div>
+          </div>
+      </div>
+      <div class="chat-footer">
+          <input type="text" id="userInput" placeholder="Sorunu yaz..." onkeypress="handleEnter(event)">
+          <button onclick="sendMessage()"><i class="fas fa-paper-plane"></i></button>
+      </div>
+  </div>
+
+  <script>
+      /* required: Cümlede MUTLAKA olması gereken kelime.
+         excludes: Cümlede ASLA olmaması gereken kelime (Karışıklığı önler).
+      */
+
+      const knowledgeBase = [
+        // 1. KAYIT YENİLEME / HARÇ (Yeni Eklendi)
+        {
+          id: "kayit_yenileme",
+          keywords: ["harç", "para", "ödeme", "ders seçimi", "ders ekle", "banka"],
+          required: ["yenileme", "harç", "ders seçimi", "ekle sil"], 
+          excludes: ["yeni kayıt", "ilk kayıt", "yks"],
+          response: "💳 <strong>Kayıt Yenileme (Harç):</strong><br>• Dönem başlarında (Ekim/Şubat) yapılır.<br>• Önce <strong>Ders Seçimi</strong> (Ders Ekle-Sil) yapmalısın.<br>• Sonra çıkan ücreti Ziraat Bankası'na yatırmalısın.<br>⚠️ Ücreti yatırmazsan kaydın yenilenmez!"
+        },
+
+        // 2. KARİYER / İŞ İMKANLARI (Yeni Eklendi)
+        {
+          id: "kariyer",
+          keywords: ["iş", "meslek", "ne iş", "nerede çalış", "sektör", "staj"],
+          required: ["kariyer", "iş", "çalışabilirim", "imkan"],
+          excludes: ["ders"],
+          response: "💼 <strong>Kariyer İmkanları:</strong><br>Halkla İlişkiler mezunları şuralarda çalışabilir:<br>• Reklam ve PR Ajansları<br>• Kurumsal İletişim Departmanları<br>• Sosyal Medya Uzmanlığı<br>• Belediyeler ve Kamu Kurumları (Basın Danışmanlığı)"
+        },
+
+        // 3. DGS (DİKEY GEÇİŞ) (Yeni Eklendi)
+        {
+          id: "dgs",
+          keywords: ["dgs", "lisans", "4 yıllık", "tamamlama", "dikey"],
+          required: ["dgs", "dikey", "geçiş"],
+          excludes: [],
+          response: "🎓 <strong>DGS (Dikey Geçiş):</strong><br>2 yıllık bölümünü bitirince DGS sınavı ile 4 yıllığa tamamlayabilirsin. Geçebileceğin bölümler:<br>• Halkla İlişkiler ve Tanıtım<br>• Reklamcılık<br>• İletişim Bilimleri"
+        },
+
+        // 4. ÖĞRENCİ BELGESİ / KİMLİK (Yeni Eklendi)
+        {
+          id: "belge",
+          keywords: ["belge", "kimlik", "kart", "paso"],
+          required: ["belge", "öğrenci", "kimlik"],
+          excludes: [],
+          response: "🆔 <strong>Öğrenci Belgesi ve Kartı:</strong><br>• Öğrenci belgeni <strong>E-Devlet</strong> veya E-Kampüs üzerinden anında alabilirsin.<br>• Öğrenci kimlik kartları artık posta ile gelmiyor, AÖF bürolarından alabilirsin."
+        },
+
+        // 5. MUAFİYET (İNGİLİZCE VS) (Yeni Eklendi)
+        {
+          id: "muafiyet",
+          keywords: ["muaf", "ingilizce", "yökdil", "saydırma"],
+          required: ["muaf"],
+          excludes: [],
+          response: "✅ <strong>Ders Muafiyeti:</strong><br>Daha önce başka üniversitede aldığın derslerden veya İngilizce'den muaf olabilirsin. Bunun için kayıt tarihleri içinde <strong>'Ders Transferi'</strong> başvurusu yapman gerekir."
+        },
+
+        // --- MEVCUT ÖZELLİKLER ---
+        {
+          id: "canli_ders",
+          keywords: ["ders", "izle", "saat", "program", "ne zaman"],
+          required: ["canlı"], 
+          excludes: ["not", "hesap"],
+          response: "🎥 <strong>Canlı Dersler:</strong><br>Dersler dönem başladıktan <strong>2-3 hafta sonra</strong> başlar.<br>📅 E-Kampüs takviminden takip edebilirsin.<br><a href='https://ekampus.anadolu.edu.tr' target='_blank' class='chat-link-btn'>E-Kampüs'e Git</a>"
+        },
+        
+        {
+          id: "sinav_tarihleri",
+          keywords: ["tarih", "ne zaman", "takvim", "gün"],
+          required: ["sınav", "final", "büt", "vize"], 
+          excludes: ["canlı"],
+          response: "📅 <strong>Sınav Takvimi:</strong><br>• Güz Finali: <strong>17-18 Ocak 2026</strong><br>• Bahar Ara Sınavı: Nisan 2026 (Tahmini)<br>📍 Not: AÖF'te bütünleme yoktur."
+        },
+
+        {
+          id: "kalma_gecme",
+          keywords: ["kalırsam", "geçerim", "ne olur", "notum"],
+          required: ["kalma", "geçme", "ff", "kaldım", "geçtim", "baraj"],
+          excludes: [],
+          response: "🚦 <strong>Geçme Kuralı:</strong><br>• <strong>35 Puan Altı:</strong> Kalır (FF).<br>• <strong>Ortalama 2.00 Altıysa:</strong> CD, DC, DD notları kalır.<br>• <strong>Ortalama 2.00 Üstüyse:</strong> FF hariç hepsi geçer."
+        },
+
+        {
+          id: "not_hesapla",
+          keywords: ["hesap", "kaç", "puan", "yüzde"],
+          required: ["not", "ortalama", "hesapla"],
+          excludes: [],
+          response: "🧮 <strong>Not Hesaplama:</strong><br>Vize (%30) ve Final (%70) ile hesaplanır.<br><a href='test.html' class='chat-link-btn'>Hesaplama Aracı</a>"
+        },
+
+        {
+          id: "yeni_kayit",
+          keywords: ["yks", "ikinci üniversite", "ne zaman", "nasıl"],
+          required: ["kayıt"], 
+          excludes: ["yenileme", "harç", "ders seçimi"], // "Kayıt yenileme" ile karışmasın
+          response: "📝 <strong>Yeni Kayıt:</strong><br>YKS veya Sınavsız İkinci Üniversite kayıtları genellikle Ağustos sonu başlar. <br><a href='https://aoskayit.anadolu.edu.tr' target='_blank' class='chat-link-btn'>Kayıt Sitesi</a>"
+        },
+
+        {
+          id: "selam",
+          keywords: ["merhaba", "selam", "naber", "günaydın", "iyi"],
+          required: [],
+          excludes: [],
+          response: "👋 Merhaba! Kayıt yenileme, kariyer veya sınavlar hakkında sorabilirsin."
+        }
+      ];
+
+      const defaultResponse = "🤔 Bunu tam anlayamadım.<br>Şunları deneyebilirsin:<br>• <a href='#' onclick='fillInput(\"Kayıt yenileme nasıl?\")'>Kayıt yenileme</a><br>• <a href='#' onclick='fillInput(\"Kariyer imkanları\")'>Kariyer imkanları</a><br>• <a href='#' onclick='fillInput(\"Sınav ne zaman?\")'>Sınav tarihleri</a>";
+
+      function toggleChat() {
+          const chatBox = document.getElementById("chatBox");
+          chatBox.style.display = chatBox.style.display === "flex" ? "none" : "flex";
+          if (chatBox.style.display === "flex") document.getElementById("userInput").focus();
+      }
+
+      function handleEnter(event) { if (event.key === "Enter") sendMessage(); }
+
+      function fillInput(text) {
+          const input = document.getElementById("userInput");
+          input.value = text;
+          sendMessage();
+      }
+
+      function sendMessage() {
+          const inputField = document.getElementById("userInput");
+          const message = inputField.value.trim();
+          if (message === "") return;
+
+          addMessage(message, "user-message");
+          inputField.value = "";
+          showTyping();
+
+          setTimeout(() => {
+              removeTyping();
+              const response = findSmartResponse(message);
+              addMessage(response, "bot-message");
+          }, 600);
+      }
+
+      function findSmartResponse(userInput) {
+          userInput = userInput.toLowerCase();
+          let bestMatch = null;
+          let highestScore = 0;
+
+          knowledgeBase.forEach(item => {
+              let score = 0;
+
+              // 1. YASAKLI KELİME (Excludes)
+              if (item.excludes && item.excludes.length > 0) {
+                  if (item.excludes.some(ex => userInput.includes(ex))) return;
+              }
+
+              // 2. ZORUNLU KELİME (Required)
+              if (item.required && item.required.length > 0) {
+                  const hasRequired = item.required.some(req => userInput.includes(req));
+                  if (!hasRequired) return; 
+                  score += 10;
+              }
+
+              // 3. ANAHTAR KELİME (Keywords)
+              item.keywords.forEach(word => { if (userInput.includes(word)) score += 1; });
+
+              if (score > highestScore) {
+                  highestScore = score;
+                  bestMatch = item;
+              }
+          });
+
+          return (highestScore > 0) ? bestMatch.response : defaultResponse;
+      }
+
+      function showTyping() {
+          const chatBody = document.getElementById("chatBody");
+          const div = document.createElement("div");
+          div.id = "typing-indicator"; div.className = "message bot-message";
+          div.innerHTML = `<i class="fas fa-robot"></i> <div class="typing-indicator"><span></span><span></span><span></span></div>`;
+          chatBody.appendChild(div);
+          chatBody.scrollTop = chatBody.scrollHeight;
+      }
+
+      function removeTyping() {
+          const el = document.getElementById("typing-indicator");
+          if (el) el.remove();
+      }
+
+      function addMessage(text, type) {
+          const chatBody = document.getElementById("chatBody");
+          const div = document.createElement("div");
+          div.className = `message ${type}`;
+          const icon = type === "bot-message" ? '<i class="fas fa-robot"></i>' : '<i class="fas fa-user"></i>';
+          div.innerHTML = `${icon} <div>${text}</div>`;
+          chatBody.appendChild(div);
+          chatBody.scrollTop = chatBody.scrollHeight;
+      }
+  </script>
 </body>
 </html>
